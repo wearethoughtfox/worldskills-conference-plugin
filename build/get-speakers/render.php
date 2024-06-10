@@ -4,10 +4,10 @@
  */
 ?>
 <?php
-// Always setting the target post type for the query to 'speaker'
+// Set the target post type for the query to 'speaker'
 $target_post_type = 'speaker';
 
-// Get the terms related to the current session post 
+// Get the terms related to the current post (assumed to be a session)
 $terms = get_the_terms($post->ID, 'conference');
 if ($terms && !is_wp_error($terms)) {
     $term_ids = wp_list_pluck($terms, 'term_id');
@@ -30,7 +30,15 @@ if ($terms && !is_wp_error($terms)) {
     if ($related_speakers->have_posts()) {
         echo '<h3>Speakers</h3><ul>';
         while ($related_speakers->have_posts()) : $related_speakers->the_post();
-            echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+            // Retrieve thumbnail if available
+            $thumbnail = has_post_thumbnail() ? get_the_post_thumbnail($post->ID, 'thumbnail') : '';
+
+            // Build list item with thumbnail, title, and excerpt
+            echo '<li>' . 
+                    $thumbnail . 
+                    '<a href="' . get_permalink() . '">' . get_the_title() . '</a>' .
+                    '<p>' . get_the_excerpt() . '</p>' .
+                 '</li>';
         endwhile;
         echo '</ul>';
     } else {
@@ -39,4 +47,5 @@ if ($terms && !is_wp_error($terms)) {
     wp_reset_postdata();  // Reset post data after custom query
 }
 ?>
+
 

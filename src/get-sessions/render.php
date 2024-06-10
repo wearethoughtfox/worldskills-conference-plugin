@@ -4,15 +4,15 @@
  */
 ?>
 <?php
-// Always setting the target post type for the query to 'speaker'
-$target_post_type = 'speaker';
+// Set the target post type for the query to 'session'
+$target_post_type = 'session';
 
-// Get the terms related to the current session post 
+// Get the terms related to the current speaker post
 $terms = get_the_terms($post->ID, 'conference');
 if ($terms && !is_wp_error($terms)) {
     $term_ids = wp_list_pluck($terms, 'term_id');
 
-    // Setup the query arguments to get speakers
+    // Setup the query arguments to get sessions
     $args = array(
         'post_type' => $target_post_type,
         'tax_query' => array(
@@ -22,21 +22,20 @@ if ($terms && !is_wp_error($terms)) {
                 'terms'    => $term_ids,
             ),
         ),
-        'posts_per_page' => -1  // Retrieve all matching speakers
+        'posts_per_page' => -1  // Retrieve all matching sessions
     );
 
-    // Execute the query for speakers
-    $related_speakers = new WP_Query($args);
-    if ($related_speakers->have_posts()) {
-        echo '<h3>Speakers</h3><ul>';
-        while ($related_speakers->have_posts()) : $related_speakers->the_post();
+    // Execute the query for sessions
+    $related_sessions = new WP_Query($args);
+    if ($related_sessions->have_posts()) {
+        echo '<h3>Sessions</h3><ul>';
+        while ($related_sessions->have_posts()) : $related_sessions->the_post();
             echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
         endwhile;
         echo '</ul>';
     } else {
-        echo '<p>No related speakers found.</p>';
+        echo '<p>No related sessions found.</p>';
     }
     wp_reset_postdata();  // Reset post data after custom query
 }
 ?>
-

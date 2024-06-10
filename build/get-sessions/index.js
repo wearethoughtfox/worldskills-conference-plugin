@@ -78,7 +78,7 @@ function Edit({
     onChange: onChangeTitle,
     placeholder: "Enter title here"
   }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default()), {
-    block: "worldskills/worldskills/get-sessions",
+    block: "worldskills/get-sessions",
     attributes: attributes
   }));
 }
