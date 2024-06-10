@@ -12,6 +12,7 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
 2. Change version in package.json 
 `"@wordpress/scripts": "^27.8.0"`
+Run `npm install`
 See: https://github.com/WordPress/gutenberg/issues/62202
 
 
