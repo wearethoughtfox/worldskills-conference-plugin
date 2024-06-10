@@ -11,7 +11,16 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+
+import {
+	Panel,
+	PanelBody,
+	PanelRow,
+	TextControl,
+} from "@wordpress/components";
+
+import ServerSideRender from "@wordpress/server-side-render";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -29,13 +38,36 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
-	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Worldskills Conference – hello from the editor!',
-				'worldskills-conference'
-			) }
-		</p>
-	);
+export default function Edit ({ attributes, setAttributes }) {
+
+    const onChangeTitle = (title) => {
+        setAttributes({ title });
+    };
+
+	const blockProps = useBlockProps();
+
+    return (
+		<div {...blockProps}> {/* Wrap everything in a div to ensure valid JSX */}
+            <InspectorControls>
+                <Panel>
+                    <PanelBody title={__("Settings", "wpdev")} initialOpen={true}>
+                        <PanelRow>
+                            <TextControl
+                                label="Title"
+                                value={attributes.title}
+                                onChange={onChangeTitle}
+                                placeholder="Enter title here"
+                            />
+                        </PanelRow>
+                    </PanelBody>
+                </Panel>
+            </InspectorControls>
+            <ServerSideRender
+                block="worldskills/worldskills-conference"
+                attributes={attributes}
+            />
+        </div>
+    );
 }
+
+

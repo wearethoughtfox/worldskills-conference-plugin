@@ -21,5 +21,7 @@
  */
 
 /* eslint-disable no-console */
-console.log( 'Hello World! (from worldskills-worldskills-conference block)' );
+console.log(
+	'Hello World! (from worldskills-get-related-by-custom-taxonomy block)'
+);
 /* eslint-enable no-console */

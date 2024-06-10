@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Worldskills Conference
- * Description:       Example block scaffolded with Create Block tool.
+ * Description:       Custom blocks for the WorldSkills Conference.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0

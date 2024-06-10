@@ -1,20 +1,37 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
+  "apiVersion": 2,
   "name": "worldskills/worldskills-conference",
   "version": "0.1.0",
-  "title": "Worldskills Conference",
+  "title": "Get Related Sessions By Custom Taxonomy",
   "category": "widgets",
-  "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "icon": "admin-users",
+  "description": "Custom block for WorldSkills conference related speakers and sessions.",
   "example": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "textdomain": "worldskills-conference",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
-  "render": "file:./render.php",
-  "viewScript": "file:./view.js"
+  "render": "file:./render.php"
 }
