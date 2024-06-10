@@ -4,7 +4,7 @@
   "name": "worldskills/get-speakers",
   "version": "0.1.0",
   "title": "Get Related Speakers",
-  "category": "widgets",
+  "category": "worldskills-conference",
   "icon": "admin-users",
   "description": "Custom block for WorldSkills conference to get related speakers by custom taxonomy.",
   "example": {},

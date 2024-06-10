@@ -4,8 +4,8 @@
 	"name": "worldskills/get-sessions",
 	"version": "0.1.0",
 	"title": "Get Related Sessions",
-	"category": "widgets",
-	"icon": "admin-users",
+	"category": "worldskills-conference",
+	"icon": "calendar",
 	"description": "Custom block for WorldSkills conference to get related sessionsby custom taxonomy.",
 	"example": {},
 	"attributes": {

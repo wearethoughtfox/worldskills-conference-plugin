@@ -24,11 +24,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function worldskills_worldskills_conference_block_init() {
+
+ function ws_register_block_category( $block_categories, $editor_context ) {
+    if ( ! empty( $editor_context->post ) ) {
+        array_push( $block_categories, array(
+            'slug'  => 'worldskills-conference',
+            'title' => __( 'WorldSkills Conference', 'ws-text-domain' ),
+            'icon'  => null,  // Optional: You can specify an icon here
+        ));
+    }
+    return $block_categories;
+}
+add_filter( 'block_categories_all', 'ws_register_block_category', 10, 2 );
+
+
+ function worldskills_worldskills_conference_block_init() {
 	register_block_type( __DIR__ . '/build/get-sessions' );
 	register_block_type( __DIR__ . '/build/get-speakers' );
 }
 add_action( 'init', 'worldskills_worldskills_conference_block_init' );
+
+
+
 
 function create_speaker_post_type() {
     $labels = array(
