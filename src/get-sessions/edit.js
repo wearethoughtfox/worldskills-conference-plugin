@@ -63,7 +63,7 @@ export default function Edit ({ attributes, setAttributes }) {
                 </Panel>
             </InspectorControls>
             <ServerSideRender
-                block="worldskills/worldskills-conference"
+                block="worldskills/worldskills/get-sessions"
                 attributes={attributes}
             />
         </div>

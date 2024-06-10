@@ -25,7 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 function worldskills_worldskills_conference_block_init() {
-	register_block_type( __DIR__ . '/build' );
+	register_block_type( __DIR__ . '/build/get-sessions' );
+	register_block_type( __DIR__ . '/build/get-speakers' );
 }
 add_action( 'init', 'worldskills_worldskills_conference_block_init' );
 

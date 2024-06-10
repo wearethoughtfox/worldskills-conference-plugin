@@ -1,12 +1,12 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "worldskills/worldskills-conference",
+  "name": "worldskills/get-speakers",
   "version": "0.1.0",
-  "title": "Get Related Sessions By Custom Taxonomy",
+  "title": "Get Related Speakers",
   "category": "widgets",
   "icon": "admin-users",
-  "description": "Custom block for WorldSkills conference related speakers and sessions.",
+  "description": "Custom block for WorldSkills conference to get related speakers by custom taxonomy.",
   "example": {},
   "attributes": {
     "title": {
