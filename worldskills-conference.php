@@ -28,3 +28,115 @@ function worldskills_worldskills_conference_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
 add_action( 'init', 'worldskills_worldskills_conference_block_init' );
+
+function create_speaker_post_type() {
+    $labels = array(
+        'name'                  => _x('Speakers', 'Post type general name', 'textdomain'),
+        'singular_name'         => _x('Speaker', 'Post type singular name', 'textdomain'),
+        'menu_name'             => _x('Speakers', 'Admin Menu text', 'textdomain'),
+        'name_admin_bar'        => _x('Speaker', 'Add New on Toolbar', 'textdomain'),
+        'add_new'               => _x('Add New Speaker', 'speaker', 'textdomain'),
+        'add_new_item'          => __('Add New Speaker', 'textdomain'),
+        'new_item'              => __('New Speaker', 'textdomain'),
+        'edit_item'             => __('Edit Speaker', 'textdomain'),
+        'view_item'             => __('View Speaker', 'textdomain'),
+        'all_items'             => __('All Speakers', 'textdomain'),
+        'search_items'          => __('Search Speakers', 'textdomain'),
+        'not_found'             => __('No speakers found.', 'textdomain'),
+        'not_found_in_trash'    => __('No speakers found in Trash.', 'textdomain'),
+        'featured_image'        => __('Speaker Image', 'textdomain'),
+        'set_featured_image'    => __('Set speaker image', 'textdomain'),
+        'remove_featured_image' => __('Remove speaker image', 'textdomain'),
+        'use_featured_image'    => __('Use as speaker image', 'textdomain'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'speakers'),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
+        'show_in_rest'       => true,  // This enables Gutenberg editor for this post type
+    );
+
+    register_post_type('speaker', $args);
+}
+
+add_action('init', 'create_speaker_post_type');
+
+
+function create_session_post_type() {
+    $labels = array(
+        'name'                  => _x('Sessions', 'Post type general name', 'textdomain'),
+        'singular_name'         => _x('Session', 'Post type singular name', 'textdomain'),
+        'menu_name'             => _x('Sessions', 'Admin Menu text', 'textdomain'),
+        'name_admin_bar'        => _x('Session', 'Add New on Toolbar', 'textdomain'),
+        'add_new'               => _x('Add New Session', 'session', 'textdomain'),
+        'add_new_item'          => __('Add New Session', 'textdomain'),
+        'new_item'              => __('New Session', 'textdomain'),
+        'edit_item'             => __('Edit Session', 'textdomain'),
+        'view_item'             => __('View Session', 'textdomain'),
+        'all_items'             => __('All Sessions', 'textdomain'),
+        'search_items'          => __('Search Sessions', 'textdomain'),
+        'not_found'             => __('No sessions found.', 'textdomain'),
+        'not_found_in_trash'    => __('No sessions found in Trash.', 'textdomain'),
+        'featured_image'        => __('Session Image', 'textdomain'),
+        'set_featured_image'    => __('Set session image', 'textdomain'),
+        'remove_featured_image' => __('Remove session image', 'textdomain'),
+        'use_featured_image'    => __('Use as session image', 'textdomain'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'sessions'),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
+        'show_in_rest'       => true,  // This enables Gutenberg editor for this post type
+    );
+
+    register_post_type('session', $args);
+}
+
+add_action('init', 'create_session_post_type');
+
+
+
+function create_conference_taxonomy() {
+    $labels = array(
+        'name'              => 'Conference Tags',
+        'singular_name'     => 'Conference Tag',
+        'search_items'      => 'Search Conferences Tags',
+        'all_items'         => 'All Conferences Tags',
+        'edit_item'         => 'Edit Conference Tags',
+        'update_item'       => 'Update Conference Tags',
+        'add_new_item'      => 'Add New Conference Tags',
+        'new_item_name'     => 'New Conference Tags Name',
+        'menu_name'         => 'Conference Tags',
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'conference'),
+		'show_in_rest'      => true, 
+    );
+
+    register_taxonomy('conference', array('speaker', 'session'), $args);
+}
+add_action('init', 'create_conference_taxonomy');
