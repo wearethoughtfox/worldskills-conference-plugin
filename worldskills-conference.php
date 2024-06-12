@@ -43,6 +43,7 @@ add_filter( 'block_categories_all', 'ws_register_block_category', 10, 2 );
 	register_block_type( __DIR__ . '/build/get-speakers' );
     register_block_type( __DIR__ . '/build/session-time' );
     register_block_type( __DIR__ . '/build/session-display' );
+    register_block_type( __DIR__ . '/build/sessions-all' );
 }
 add_action( 'init', 'worldskills_worldskills_conference_block_init' );
 
