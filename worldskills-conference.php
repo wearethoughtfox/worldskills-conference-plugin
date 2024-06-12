@@ -41,6 +41,7 @@ add_filter( 'block_categories_all', 'ws_register_block_category', 10, 2 );
  function worldskills_worldskills_conference_block_init() {
 	register_block_type( __DIR__ . '/build/get-sessions' );
 	register_block_type( __DIR__ . '/build/get-speakers' );
+    register_block_type( __DIR__ . '/build/session-time' );
 }
 add_action( 'init', 'worldskills_worldskills_conference_block_init' );
 
