@@ -187,3 +187,30 @@ function create_session_type_taxonomy() {
     register_taxonomy('session-type', array('session'), $args);
 }
 add_action('init', 'create_session_type_taxonomy');
+
+function create_session_tags_taxonomy() {
+    $labels = array(
+        'name'              => 'Session Tags',
+        'singular_name'     => 'Session Tag',
+        'search_items'      => 'Search Session Tags',
+        'all_items'         => 'All Session Tags',
+        'edit_item'         => 'Edit Session Tag',
+        'update_item'       => 'Update Session Tag',
+        'add_new_item'      => 'Add New Session Tag',
+        'new_item_name'     => 'New Session Tag Name',
+        'menu_name'         => 'Session Tags',
+    );
+
+    $args = array(
+        'hierarchical'      => false,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'session-tags'),
+        'show_in_rest'      => true,
+    );
+
+    register_taxonomy('session-tags', array('session'), $args);
+}
+add_action('init', 'create_session_tags_taxonomy');
