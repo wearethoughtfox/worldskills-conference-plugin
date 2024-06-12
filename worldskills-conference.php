@@ -134,15 +134,15 @@ add_action('init', 'create_session_post_type');
 
 function create_conference_taxonomy() {
     $labels = array(
-        'name'              => 'Conference Tags',
-        'singular_name'     => 'Conference Tag',
-        'search_items'      => 'Search Conferences Tags',
-        'all_items'         => 'All Conferences Tags',
-        'edit_item'         => 'Edit Conference Tags',
-        'update_item'       => 'Update Conference Tags',
-        'add_new_item'      => 'Add New Conference Tags',
-        'new_item_name'     => 'New Conference Tags Name',
-        'menu_name'         => 'Conference Tags',
+        'name'              => 'Session Name Tags',
+        'singular_name'     => 'Session Name Tag',
+        'search_items'      => 'Search Session Name Tags',
+        'all_items'         => 'All Session Name Tags',
+        'edit_item'         => 'Edit Session Name Tags',
+        'update_item'       => 'Update Session Name Tags',
+        'add_new_item'      => 'Add New Session Name Tags',
+        'new_item_name'     => 'New Session Name',
+        'menu_name'         => 'Session Name',
     );
 
     $args = array(
