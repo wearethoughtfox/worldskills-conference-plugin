@@ -214,3 +214,55 @@ function create_session_tags_taxonomy() {
     register_taxonomy('session-tags', array('session'), $args);
 }
 add_action('init', 'create_session_tags_taxonomy');
+
+
+
+function populate_session_types_taxonomy() {
+
+    $session_types = [
+        'Opening Plenary',
+        'Panel discussion', 
+        'Lunch',
+        'Curated Competition Visits',
+        'Showcase',
+        'Reception',
+        'Expert Input',
+        'Pitch',
+        'Roundtable',
+        'Closing Plenary'
+    ];
+
+    foreach ($session_types as $type) {
+        if (!term_exists($type, 'session-type')) {
+            wp_insert_term($type, 'session-type'); 
+        }
+    }
+}
+
+add_action('init', 'populate_session_types_taxonomy', 10);
+
+
+function populate_session_tags_taxonomy() {
+    // List of unique session tags to add
+    $session_tags = [
+        'Global agenda',
+        'Social Justice',
+        'Apprenticeships',
+        'Youth',
+        'Employers',
+        'Competitions of the future',
+        'Digital and AI',
+        'Green',
+        'Showcase',
+        'Excellence in TVET'
+    ];
+
+    foreach ($session_tags as $tag) {
+        if (!term_exists($tag, 'session-tags')) {
+            wp_insert_term($tag, 'session-tags'); // Insert the tag if it doesn't already exist
+        }
+    }
+}
+
+// Hook the above function to run on theme setup or plugin activation
+add_action('init', 'populate_session_tags_taxonomy', 10);
