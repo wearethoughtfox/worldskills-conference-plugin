@@ -146,7 +146,7 @@ function create_conference_taxonomy() {
     );
 
     $args = array(
-        'hierarchical'      => true,
+        'hierarchical'      => false,
         'labels'            => $labels,
         'show_ui'           => true,
         'show_admin_column' => true,
@@ -158,3 +158,30 @@ function create_conference_taxonomy() {
     register_taxonomy('conference', array('speaker', 'session'), $args);
 }
 add_action('init', 'create_conference_taxonomy');
+
+function create_session_type_taxonomy() {
+    $labels = array(
+        'name'              => 'Session Types',
+        'singular_name'     => 'Session Type',
+        'search_items'      => 'Search Session Types',
+        'all_items'         => 'All Session Types',
+        'edit_item'         => 'Edit Session Type',
+        'update_item'       => 'Update Session Type',
+        'add_new_item'      => 'Add New Session Type',
+        'new_item_name'     => 'New Session Type Name',
+        'menu_name'         => 'Session Types',
+    );
+
+    $args = array(
+        'hierarchical'      => false,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'session-type'),
+        'show_in_rest'      => true,
+    );
+
+    register_taxonomy('session-type', array('session'), $args);
+}
+add_action('init', 'create_session_type_taxonomy');
