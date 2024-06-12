@@ -215,6 +215,32 @@ function create_session_tags_taxonomy() {
 }
 add_action('init', 'create_session_tags_taxonomy');
 
+function create_session_location_taxonomy() {
+    $labels = array(
+        'name'              => 'Session Location',
+        'singular_name'     => 'Session Location',
+        'search_items'      => 'Search Session Location',
+        'all_items'         => 'All Session Location',
+        'edit_item'         => 'Edit Session Location',
+        'update_item'       => 'Update Session Location',
+        'add_new_item'      => 'Add New Session Location',
+        'new_item_name'     => 'New Session Location',
+        'menu_name'         => 'Session Location',
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'session-location'),
+        'show_in_rest'      => true,
+    );
+
+    register_taxonomy('session-location', array('session'), $args);
+}
+add_action('init', 'create_session_location_taxonomy');
 
 
 function populate_session_types_taxonomy() {
@@ -266,3 +292,23 @@ function populate_session_tags_taxonomy() {
 
 // Hook the above function to run on theme setup or plugin activation
 add_action('init', 'populate_session_tags_taxonomy', 10);
+
+
+function populate_session_location_taxonomy() {
+    // List of unique session tags to add
+    $session_location = [
+        'Plenary Hall',
+        'Dome A',
+        'Dome B',
+        'Networking area'
+    ];
+
+    foreach ($session_location as $tag) {
+        if (!term_exists($tag, 'session-location')) {
+            wp_insert_term($tag, 'session-location'); // Insert the tag if it doesn't already exist
+        }
+    }
+}
+
+// Hook the above function to run on theme setup or plugin activation
+add_action('init', 'populate_session_location_taxonomy', 10);
