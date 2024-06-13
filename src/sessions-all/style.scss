@@ -5,6 +5,22 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+.session {
+	padding: 0.5em;
+	border-radius: 2px;
+	background-color: #fbe7f0;
+	box-shadow: rgba(255, 255, 255, 0.6) 1px 1px 0, rgba(0, 0, 0, 0.3) 2px 2px 0;
+}
+
+.session-title {
+	text-transform: uppercase;
+	margin-block-end: 0;
+}
+
+.session-title a {
+	text-decoration: none !important;
+}
+
 /*************************
  * GRID SCHEDULE LAYOUT
  *************************/

@@ -5,11 +5,34 @@
 ?>
 
 <div class="schedule">
-<span class="track-slot" aria-hidden="true" style="grid-column: track-1; grid-row: tracks;">Plenary Hall</span>
-	<span class="track-slot" aria-hidden="true" style="grid-column: track-2; grid-row: tracks;">Dome A</span>
-	<span class="track-slot" aria-hidden="true" style="grid-column: track-3; grid-row: tracks;">Dome B</span>
-	<span class="track-slot" aria-hidden="true" style="grid-column: track-4; grid-row: tracks;">Networking area</span>
 
+    <?php
+// Query terms from the custom taxonomy 'session-location'
+$term_ids = array(55, 56, 57, 58);
+$terms = get_terms(array(
+    'taxonomy' => 'session-location',  // Replace with your custom taxonomy slug
+    'hide_empty' => false,  
+    'include' => $term_ids,
+    'orderby' => 'include', 
+));
+
+// Check if there are any terms
+if (!empty($terms) && !is_wp_error($terms)) {
+
+    // Counter for grid-row values
+    $grid_row_counter = 1;
+
+    // Loop through each term
+    foreach ($terms as $term) {
+        // Output markup for each term
+        echo '<span class="track-slot has-small-font-size" aria-hidden="true" style="grid-column: track-' .  $grid_row_counter . '; grid-row: tracks;">' . esc_html($term->name) . '</span>';
+        
+        // Increment the grid row counter
+        $grid_row_counter++;
+    }
+
+} 
+?>
 
 
 <?php
@@ -42,7 +65,7 @@ foreach ($time_slots as $time_slot) {
     $grid_row = 'time-' . str_replace(':', '', $time_slot);
 
     // Output HTML
-    echo '<h2 class="time-slot" style="grid-row: ' . $grid_row . ';">' . $time_slot . '</h2>' . "\n";
+    echo '<h2 class="time-slot has-small-font-size" style="grid-row: ' . $grid_row . ';">' . $time_slot . '</h2>' . "\n";
 }
 ?>
 
@@ -94,10 +117,11 @@ if ($session_query->have_posts()) {
 
         // Display session details
         echo "<div class='session $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end;'>";
-        echo '<h3 class="session-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h3>';
-        echo '<span class="session-time">' . esc_html($event_time) . ' - ' . esc_html($event_time_end) . '</span>';
+        echo '<h3 class="session-title wp-block-heading has-custom-mid-grey-color has-text-color has-link-color  has-standard-font-size"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h3>';
+        echo '<span class="session-time has-small-font-size">' . esc_html($event_time) . ' - ' . esc_html($event_time_end) . '</span>';
         echo '</div>';
     }
+    
 
 } else {
     echo '<p>No sessions found.</p>'; // Message if no posts found
