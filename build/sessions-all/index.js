@@ -225,7 +225,7 @@ module.exports = window["wp"]["serverSideRender"];
   \*************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"worldskills/sessions-all","version":"0.1.0","title":"All Sessions schedule","category":"worldskills-conference","icon":"admin-users","description":"Custom block for WorldSkills conference to show all sessions in a schedule format.","example":{},"attributes":{"postId":{"type":"number","default":0}},"supports":{"html":false,"color":{"background":true,"text":true},"align":["wide","full"],"spacing":{"padding":true,"margin":true}},"textdomain":"worldskills-conference","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"worldskills/sessions-all","version":"0.1.0","title":"All Sessions schedule","category":"worldskills-conference","icon":"admin-users","description":"Custom block for WorldSkills conference to show all sessions in a schedule format.","example":{},"attributes":{"scheduleDate":{"type":"string","default":"2024-09-11"}},"supports":{"html":false,"color":{"background":true,"text":true},"align":["wide","full"],"spacing":{"padding":true,"margin":true}},"textdomain":"worldskills-conference","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 

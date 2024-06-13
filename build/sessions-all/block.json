@@ -9,9 +9,9 @@
   "description": "Custom block for WorldSkills conference to show all sessions in a schedule format.",
   "example": {},
   "attributes": {
-    "postId": {
-      "type": "number",
-      "default": 0
+    "scheduleDate": {
+      "type": "string",
+      "default": "2024-09-11"
     }
   },
   "supports": {
