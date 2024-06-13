@@ -47,12 +47,29 @@ foreach ($time_slots as $time_slot) {
 ?>
 
 
-    <?php
+<?php
+// Ensure $attributes['scheduleDate'] is defined and not empty
+if (empty($attributes['scheduleDate'])) {
+    echo 'Please provide a valid schedule date.';
+    return;
+}
+
+// Sanitize and retrieve the schedule date from attributes
+$schedule_date = sanitize_text_field($attributes['scheduleDate']);
+
 // The arguments for WP_Query
 $args = array(
     'post_type' => 'session',  // Your custom post type name
     'posts_per_page' => -1,    // -1 to fetch all posts
-    'post_status' => 'publish' // Only fetch published posts
+    'post_status' => 'publish', // Only fetch published posts
+    'meta_query' => array(
+        array(
+            'key' => 'event_date', // Replace with your actual meta key for event date
+            'value' => $schedule_date,
+            'compare' => '=', // Adjust compare operator as needed ('=' for exact match)
+            'type' => 'DATE'
+        )
+    )
 );
 
 // Create a new WP_Query instance
