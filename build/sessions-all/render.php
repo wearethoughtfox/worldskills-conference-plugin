@@ -4,24 +4,47 @@
  */
 ?>
 
-<h2 id="schedule-heading">Conference Schedule</h2>
-<div class="schedule" aria-labelledby="schedule-heading">
+<div class="schedule">
 <span class="track-slot" aria-hidden="true" style="grid-column: track-1; grid-row: tracks;">Plenary Hall</span>
 	<span class="track-slot" aria-hidden="true" style="grid-column: track-2; grid-row: tracks;">Dome A</span>
 	<span class="track-slot" aria-hidden="true" style="grid-column: track-3; grid-row: tracks;">Dome B</span>
 	<span class="track-slot" aria-hidden="true" style="grid-column: track-4; grid-row: tracks;">Networking area</span>
 
-	<h2 class="time-slot" style="grid-row: time-0900;">9:00</h2>
 
-	<h2 class="time-slot" style="grid-row: time-0930;">9:30</h2>
 
-	<h2 class="time-slot" style="grid-row: time-1000;">10:00am</h2>
+<?php
+// Example start time and end time (you would get these from your attributes or elsewhere)
+if (empty($attributes['startTime']) || empty($attributes['endTime'])) {
+    return 'Start time or end time is missing.';
+}
 
-	<h2 class="time-slot" style="grid-row: time-1030;">10:30am</h2>
+$start_time = sanitize_text_field($attributes['startTime']);
+$end_time = sanitize_text_field($attributes['endTime']);
 
-	<h2 class="time-slot" style="grid-row: time-1100;">11:00am</h2>
+// Convert start time and end time to DateTime objects
+$start_datetime = new DateTime($start_time);
+$end_datetime = new DateTime($end_time);
 
-	<h2 class="time-slot" style="grid-row: time-1130;">11:30am</h2>
+// Array to hold the generated time slots
+$time_slots = array();
+
+// Generate time slots every 30 minutes
+$current_time = clone $start_datetime;
+while ($current_time <= $end_datetime) {
+    $time_slot = $current_time->format('H:i'); // Format as "09:00", "09:30", etc.
+    $time_slots[] = $time_slot;
+    $current_time->add(new DateInterval('PT30M')); // Add 30 minutes
+}
+
+// Output the time slots with the specified HTML structure
+foreach ($time_slots as $time_slot) {
+    // Convert time to grid-row format like "time-0900" for 09:00
+    $grid_row = 'time-' . str_replace(':', '', $time_slot);
+
+    // Output HTML
+    echo '<h2 class="time-slot" style="grid-row: ' . $grid_row . ';">' . $time_slot . '</h2>' . "\n";
+}
+?>
 
 
     <?php
