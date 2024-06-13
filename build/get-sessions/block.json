@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "Get Related Sessions",
   "category": "worldskills-conference",
-  "icon": "calendar",
+  "icon": "admin-page",
   "description": "Custom block for WorldSkills conference to get related sessionsby custom taxonomy.",
   "example": {},
   "attributes": {

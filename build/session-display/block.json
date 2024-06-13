@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "Session Card",
   "category": "worldskills-conference",
-  "icon": "admin-users",
+  "icon": "format-aside",
   "description": "Custom block for WorldSkills conference to show session details in a card.",
   "example": {},
   "attributes": {

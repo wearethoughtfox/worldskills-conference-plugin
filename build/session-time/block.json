@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "Session Time",
   "category": "worldskills-conference",
-  "icon": "admin-users",
+  "icon": "clock",
   "description": "Custom block for WorldSkills conference to show session time.",
   "example": {},
   "attributes": {

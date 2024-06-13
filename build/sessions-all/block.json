@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "All Sessions schedule",
   "category": "worldskills-conference",
-  "icon": "admin-users",
+  "icon": "calendar-alt",
   "description": "Custom block for WorldSkills conference to show all sessions in a schedule format.",
   "example": {},
   "attributes": {
