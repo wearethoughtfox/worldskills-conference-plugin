@@ -51,14 +51,30 @@ export default function Edit ({ attributes, setAttributes }) {
             <InspectorControls>
                 <Panel>
                     <PanelBody title={__("Settings", "wpdev")} initialOpen={true}>
-                        <PanelRow>
+                    <PanelRow>
                         <TextControl
-                    label="Session Post ID"
-                    value={attributes.postId}
-                    onChange={(value) => setAttributes({ postId: parseInt(value, 10) || 0 })}
-                    type="number"
-                />
-                        </PanelRow>
+                            label="Session Date"
+                            value={ attributes.scheduleDate }
+                            onChange={ ( value ) => setAttributes( { scheduleDate: value } ) }
+                            type="text"
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <TextControl
+                            label="Start Time"
+                            value={ attributes.startTime }
+                            onChange={ ( value ) => setAttributes( { startTime: value } ) }
+                            type="text"
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <TextControl
+                            label="End Time"
+                            value={ attributes.endTime }
+                            onChange={ ( value ) => setAttributes( { endTime: value } ) }
+                            type="text"
+                        />
+                    </PanelRow>
                     </PanelBody>
                 </Panel>
             </InspectorControls>

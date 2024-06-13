@@ -73,12 +73,26 @@ function Edit({
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Settings", "wpdev"),
     initialOpen: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
-    label: "Session Post ID",
-    value: attributes.postId,
+    label: "Session Date",
+    value: attributes.scheduleDate,
     onChange: value => setAttributes({
-      postId: parseInt(value, 10) || 0
+      scheduleDate: value
     }),
-    type: "number"
+    type: "text"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Start Time",
+    value: attributes.startTime,
+    onChange: value => setAttributes({
+      startTime: value
+    }),
+    type: "text"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "End Time",
+    value: attributes.endTime,
+    onChange: value => setAttributes({
+      endTime: value
+    }),
+    type: "text"
   }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default()), {
     block: "worldskills/sessions-all",
     attributes: attributes
@@ -225,7 +239,7 @@ module.exports = window["wp"]["serverSideRender"];
   \*************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"worldskills/sessions-all","version":"0.1.0","title":"All Sessions schedule","category":"worldskills-conference","icon":"admin-users","description":"Custom block for WorldSkills conference to show all sessions in a schedule format.","example":{},"attributes":{"scheduleDate":{"type":"string","default":"2024-09-11"}},"supports":{"html":false,"color":{"background":true,"text":true},"align":["wide","full"],"spacing":{"padding":true,"margin":true}},"textdomain":"worldskills-conference","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"worldskills/sessions-all","version":"0.1.0","title":"All Sessions schedule","category":"worldskills-conference","icon":"admin-users","description":"Custom block for WorldSkills conference to show all sessions in a schedule format.","example":{},"attributes":{"scheduleDate":{"type":"string","default":"2024-09-11"},"startTime":{"type":"string","default":"9:00"},"endTime":{"type":"string","default":"21:30"}},"supports":{"html":false,"color":{"background":true,"text":true},"align":["wide","full"],"spacing":{"padding":true,"margin":true}},"textdomain":"worldskills-conference","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 

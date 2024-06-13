@@ -12,6 +12,14 @@
     "scheduleDate": {
       "type": "string",
       "default": "2024-09-11"
+    },
+    "startTime": {
+      "type": "string",
+      "default": "9:00"
+    },
+    "endTime": {
+      "type": "string",
+      "default": "21:30"
     }
   },
   "supports": {
