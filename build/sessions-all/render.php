@@ -33,8 +33,6 @@ if (!empty($terms) && !is_wp_error($terms)) {
 
 } 
 ?>
-
-
 <?php
 // Example start time and end time (you would get these from your attributes or elsewhere)
 if (empty($attributes['startTime']) || empty($attributes['endTime'])) {
@@ -48,29 +46,6 @@ $end_time = sanitize_text_field($attributes['endTime']);
 $start_datetime = new DateTime($start_time);
 $end_datetime = new DateTime($end_time);
 
-// Array to hold the generated time slots
-$time_slots = array();
-
-// Generate time slots every 30 minutes
-$current_time = clone $start_datetime;
-while ($current_time <= $end_datetime) {
-    $time_slot = $current_time->format('H:i'); // Format as "09:00", "09:30", etc.
-    $time_slots[] = $time_slot;
-    $current_time->add(new DateInterval('PT30M')); // Add 30 minutes
-}
-
-// Output the time slots with the specified HTML structure
-foreach ($time_slots as $time_slot) {
-    // Convert time to grid-row format like "time-0900" for 09:00
-    $grid_row = 'time-' . str_replace(':', '', $time_slot);
-
-    // Output HTML
-    echo '<h2 class="time-slot has-small-font-size" style="grid-row: ' . $grid_row . ';">' . $time_slot . '</h2>' . "\n";
-}
-?>
-
-
-<?php
 // Ensure $attributes['scheduleDate'] is defined and not empty
 if (empty($attributes['scheduleDate'])) {
     echo 'Please provide a valid schedule date.';
@@ -99,36 +74,68 @@ $args = array(
 $session_query = new WP_Query($args);
 
 // Check if there are any posts to display
+$sessions = array();
 if ($session_query->have_posts()) {
-
-    // Loop through the posts
     while ($session_query->have_posts()) {
         $session_query->the_post();
-
+        
         // Get custom field values
         $track = get_post_meta(get_the_ID(), 'track', true);
         $event_time = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time', true)); 
         $event_time_end = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time_end', true)); 
-
-        // CSS Grid placement
-        $grid_column = esc_attr("$track");
-        $grid_row_start = esc_attr("time-$event_time");
-        $grid_row_end = esc_attr("time-$event_time_end");
-
-        // Display session details
-        echo "<div class='session $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end;'>";
-        echo '<h3 class="session-title wp-block-heading has-custom-mid-grey-color has-text-color has-link-color  has-standard-font-size"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h3>';
-        echo '<span class="session-time has-small-font-size">' . esc_html($event_time) . ' - ' . esc_html($event_time_end) . '</span>';
-        echo '</div>';
+        
+        // Store session details in an array
+        $sessions[] = array(
+            'id' => get_the_ID(),
+            'title' => get_the_title(),
+            'permalink' => get_permalink(),
+            'track' => $track,
+            'event_time' => $event_time,
+            'event_time_end' => $event_time_end,
+        );
     }
-    
-
 } else {
     echo '<p>No sessions found.</p>'; // Message if no posts found
 }
 
 // Restore original post data, important if using multiple queries
 wp_reset_postdata();
+
+// Generate time slots every 30 minutes
+$current_time = clone $start_datetime;
+while ($current_time <= $end_datetime) {
+    $time_slot = $current_time->format('H:i'); // Format as "09:00", "09:30", etc.
+    $grid_row = 'time-' . str_replace(':', '', $time_slot);
+
+    // Output time slot heading
+    echo '<h2 class="time-slot has-small-font-size" style="grid-row: ' . $grid_row . ';">' . date('H:i', strtotime($time_slot)) . '</h2>' . "\n";
+
+
+    // Loop through the sessions and output those that fall within the current time slot
+    foreach ($sessions as $session) {
+        // Convert session times to DateTime objects for comparison
+        $session_start_time = DateTime::createFromFormat('Hi', $session['event_time']);
+        $session_end_time = DateTime::createFromFormat('Hi', $session['event_time_end']);
+
+        // Check if the session starts within the current time slot
+        if ($session_start_time == $current_time) {
+            $track = esc_attr($session['track']);
+            $grid_column = "$track";
+            $grid_row_start = "time-" . $session['event_time'];
+            $grid_row_end = "time-" . $session['event_time_end'];
+
+            echo "<div class='session session-{$session['id']} $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end;'>";
+            echo '<h3 class="session-title wp-block-heading has-custom-mid-grey-color has-text-color has-link-color  has-standard-font-size"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
+            echo '<span class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</span>';
+            echo '</div>';
+        }
+    }
+
+    // Add 30 minutes to the current time
+    $current_time->add(new DateInterval('PT30M'));
+}
 ?>
+
+
 </div>
 
