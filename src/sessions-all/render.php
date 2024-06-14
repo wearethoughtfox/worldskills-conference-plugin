@@ -83,6 +83,10 @@ if ($session_query->have_posts()) {
         $track = get_post_meta(get_the_ID(), 'track', true);
         $event_time = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time', true)); 
         $event_time_end = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time_end', true)); 
+
+                // Debugging output
+                error_log("Session: " . get_the_title() . " | Start Time: " . $event_time . " | End Time: " . $event_time_end);
+
         
         // Store session details in an array
         $sessions[] = array(
@@ -117,8 +121,9 @@ while ($current_time <= $end_datetime) {
         $session_start_time = DateTime::createFromFormat('Hi', $session['event_time']);
         $session_end_time = DateTime::createFromFormat('Hi', $session['event_time_end']);
 
+
         // Check if the session starts within the current time slot
-        if ($session_start_time == $current_time) {
+        if ($session_start_time->format('YmdHis') === $current_time->format('YmdHis')) {
             $track = esc_attr($session['track']);
             $grid_column = "$track";
             $grid_row_start = "time-" . $session['event_time'];
@@ -132,7 +137,7 @@ while ($current_time <= $end_datetime) {
     }
 
     // Add 30 minutes to the current time
-    $current_time->add(new DateInterval('PT30M'));
+    $current_time->add(new DateInterval('PT15M'));
 }
 ?>
 
