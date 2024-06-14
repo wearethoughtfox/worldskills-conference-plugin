@@ -6,7 +6,7 @@
  */
 
 .session {
-	background-color: white;
+	background-color: var(--wp--preset--color--custom-tweaked-purple) !important;
 	padding: 1.5rem;
 	padding-top: 0.5rem;
 }
@@ -42,7 +42,13 @@
 }
 
 .time-slot {
-	grid-column: times;
+	display: none;
+	letter-spacing: 1px;
+	color: var(--wp--preset--color--custom-light-purple);
+}
+
+.time-slot:nth-child(4n+1) {
+	display: grid;
 }
 
 .track-slot {
@@ -59,6 +65,12 @@
 			top: 0;
 			z-index: 1000;
 			background-color: rgba(255, 255, 255, 0.9);
+		}
+
+		.time-slot {
+			display: grid;
+			grid-column: times;
+
 		}
 	}
 }
