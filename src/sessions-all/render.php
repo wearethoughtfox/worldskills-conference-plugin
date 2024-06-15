@@ -8,12 +8,9 @@
 
     <?php
 // Query terms from the custom taxonomy 'session-location'
-$term_ids = array(55, 56, 57, 58);
 $terms = get_terms(array(
-    'taxonomy' => 'session-location',  // Replace with your custom taxonomy slug
+    'taxonomy' => 'session-location',  
     'hide_empty' => false,  
-    'include' => $term_ids,
-    'orderby' => 'include', 
 ));
 
 // Check if there are any terms
