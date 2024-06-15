@@ -11,6 +11,7 @@
   padding: 1.5rem;
   padding-top: 0.5rem;
   background-color: var(--session-bg-color);
+  position: relative;
 }
 
 .session-title {
@@ -23,8 +24,17 @@
   text-decoration: none !important;
 }
 
+.session a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
 .session-meta {
-  color: var(--session-meta-color) !important;
+  color: var(--session-link-color) !important;
 }
 
 /*************************
