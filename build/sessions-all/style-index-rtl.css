@@ -12,6 +12,30 @@
   padding-top: 0.5rem;
   background-color: var(--session-bg-color);
   position: relative;
+  transition: transform 0.5s;
+}
+
+.session::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+  content: "";
+  opacity: 0;
+  z-index: -1;
+}
+
+.session:hover,
+.session:focus {
+  transform: scale3d(1.006, 1.006, 1);
+}
+
+.session:hover::after,
+.session:focus::after {
+  opacity: 1;
 }
 
 .session-title {
@@ -22,6 +46,10 @@
 .session-title a {
   color: var(--session-link-color) !important;
   text-decoration: none !important;
+}
+
+.session-title a:hover {
+  text-decoration: underline !important;
 }
 
 .session a::after {
