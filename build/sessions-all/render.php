@@ -138,10 +138,18 @@ while ($current_time <= $end_datetime) {
             $grid_row_start = "time-" . $session['event_time'];
             $grid_row_end = "time-" . $session['event_time_end'];
 
-            echo "<div class='session session-{$session['id']} $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end;'>";
-            echo '<h3 class="session-title wp-block-heading has-custom-mid-grey-color has-text-color has-link-color  has-standard-font-size"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
+            // Get the background and link color from attributes
+            $background_color = esc_attr($attributes['backgroundColor']);
+            $link_color = esc_attr($attributes['linkColor']);
+            $meta_color = esc_attr($attributes['metaColor']);
+
+            echo "<div class='session session-{$session['id']} $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
+            echo '<h3 class="session-title wp-block-heading has-standard-font-size"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
+            echo '<div class="session-meta" style="--session-meta-color: ' . $meta_color . ';">';
             echo '<span class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</span>';
             echo '</div>';
+            echo '</div>';
+            
         }
     }
 

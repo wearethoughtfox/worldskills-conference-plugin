@@ -20,6 +20,18 @@
     "endTime": {
       "type": "string",
       "default": "21:30"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "linkColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "metaColor": {
+      "type": "string",
+      "default": "#000000"
     }
   },
   "supports": {

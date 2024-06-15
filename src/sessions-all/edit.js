@@ -18,6 +18,7 @@ import {
 	PanelBody,
 	PanelRow,
 	TextControl,
+    ColorPalette,
 } from "@wordpress/components";
 
 import ServerSideRender from "@wordpress/server-side-render";
@@ -75,6 +76,24 @@ export default function Edit ({ attributes, setAttributes }) {
                             type="text"
                         />
                     </PanelRow>
+                    </PanelBody>
+                    <PanelBody title={__('Background Color')}>
+                        <ColorPalette
+                            value={attributes.backgroundColor}
+                            onChange={(color) => setAttributes({ backgroundColor: color })}
+                        />
+                    </PanelBody>
+                    <PanelBody title={__('Link Color')}>
+                        <ColorPalette
+                            value={attributes.linkColor}
+                            onChange={(color) => setAttributes({ linkColor: color })}
+                        />
+                    </PanelBody>
+                    <PanelBody title={__('Meta text Color')}>
+                        <ColorPalette
+                            value={attributes.metaColor}
+                            onChange={(color) => setAttributes({ metaColor: color })}
+                        />
                     </PanelBody>
                 </Panel>
             </InspectorControls>

@@ -7,9 +7,9 @@
 
 .session {
 	// background-color: var(--wp--preset--color--custom-tweaked-purple) !important;
-	background-color: white;
 	padding: 1.5rem;
 	padding-top: 0.5rem;
+	background-color: var(--session-bg-color);
 }
 
 .session-title {
@@ -18,7 +18,12 @@
 }
 
 .session-title a {
+	color: var(--session-link-color) !important;
 	text-decoration: none !important;
+}
+
+.session-meta {
+	color: var(--session-meta-color) !important;
 }
 
 /*************************
