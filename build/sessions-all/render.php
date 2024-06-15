@@ -81,10 +81,6 @@ if ($session_query->have_posts()) {
         $track_end = get_post_meta(get_the_ID(), 'track_end', true);
         $event_time = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time', true)); 
         $event_time_end = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time_end', true)); 
-
-                // Debugging output
-                error_log("Session: " . get_the_title() . " | Start Time: " . $event_time . " | End Time: " . $event_time_end);
-
         
         // Store session details in an array
         $sessions[] = array(
