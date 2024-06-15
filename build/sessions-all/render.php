@@ -81,6 +81,7 @@ if ($session_query->have_posts()) {
         
         // Get custom field values
         $track = get_post_meta(get_the_ID(), 'track', true);
+        $track_end = get_post_meta(get_the_ID(), 'track_end', true);
         $event_time = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time', true)); 
         $event_time_end = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time_end', true)); 
 
@@ -94,6 +95,7 @@ if ($session_query->have_posts()) {
             'title' => get_the_title(),
             'permalink' => get_permalink(),
             'track' => $track,
+            'track_end' => $track_end,
             'event_time' => $event_time,
             'event_time_end' => $event_time_end,
         );
@@ -125,7 +127,14 @@ while ($current_time <= $end_datetime) {
         // Check if the session starts within the current time slot
         if ($session_start_time->format('YmdHis') === $current_time->format('YmdHis')) {
             $track = esc_attr($session['track']);
-            $grid_column = "$track";
+            $track_end = esc_attr($session['track_end']);
+            
+            if (!empty($track_end)) {
+                $grid_column = $track . "-start / " . $track_end . "-end"; 
+            } else {
+                $grid_column = "$track";
+            }
+            
             $grid_row_start = "time-" . $session['event_time'];
             $grid_row_end = "time-" . $session['event_time_end'];
 
