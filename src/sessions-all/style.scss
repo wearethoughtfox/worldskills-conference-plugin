@@ -91,10 +91,6 @@
 	color: var(--wp--preset--color--custom-light-purple);
 }
 
-.time-slot:nth-child(4n+1) {
-	display: grid;
-}
-
 .track-slot {
 	display: none;
 	/* hidden on small screens and browsers without grid support */
