@@ -11,6 +11,8 @@
 $terms = get_terms(array(
     'taxonomy' => 'session-location',  
     'hide_empty' => false,  
+    'orderby' => 'id',  
+    'order' => 'ASC'    
 ));
 
 // Check if there are any terms
