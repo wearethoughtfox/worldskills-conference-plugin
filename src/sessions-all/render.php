@@ -4,7 +4,7 @@
  */
 ?>
 
-<div class="schedule">
+<div class="schedule schedule-<?php echo esc_attr($attributes['scheduleDate']); ?>">
 
     <?php
 // Query terms from the custom taxonomy 'session-location'
