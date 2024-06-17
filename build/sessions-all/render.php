@@ -4,6 +4,30 @@
  */
 ?>
 
+<?php
+
+if (empty($attributes['startTime']) || empty($attributes['endTime'])) {
+    return 'Start time or end time is missing.';
+}
+
+$start_time = sanitize_text_field($attributes['startTime']);
+$end_time = sanitize_text_field($attributes['endTime']);
+
+// Convert start time and end time to DateTime objects
+$start_datetime = new DateTime($start_time);
+$end_datetime = new DateTime($end_time);
+
+// Ensure $attributes['scheduleDate'] is defined and not empty
+if (empty($attributes['scheduleDate'])) {
+    echo 'Please provide a valid schedule date.';
+    return;
+}
+
+// Sanitize and retrieve the schedule date from attributes
+$schedule_date = sanitize_text_field($attributes['scheduleDate']);
+
+?>
+
 <div class="schedule schedule-<?php echo esc_attr($attributes['scheduleDate']); ?>">
 
     <?php
@@ -32,27 +56,29 @@ if (!empty($terms) && !is_wp_error($terms)) {
 
 } 
 ?>
+
 <?php
-// Example start time and end time (you would get these from your attributes or elsewhere)
-if (empty($attributes['startTime']) || empty($attributes['endTime'])) {
-    return 'Start time or end time is missing.';
+// Generate the CSS for grid-template-rows
+$grid_template_rows = "[tracks] auto";
+$current_time = clone $start_datetime;
+while ($current_time <= $end_datetime) {
+    $time_label = $current_time->format('Hi');
+    $grid_template_rows .= " [time-$time_label] 1fr";
+    $current_time->add(new DateInterval('PT15M')); // Increment by 15 minutes
 }
+$grid_template_rows .= ";"; // End the CSS rule
 
-$start_time = sanitize_text_field($attributes['startTime']);
-$end_time = sanitize_text_field($attributes['endTime']);
+?>
 
-// Convert start time and end time to DateTime objects
-$start_datetime = new DateTime($start_time);
-$end_datetime = new DateTime($end_time);
-
-// Ensure $attributes['scheduleDate'] is defined and not empty
-if (empty($attributes['scheduleDate'])) {
-    echo 'Please provide a valid schedule date.';
-    return;
+<style>
+.schedule-<?php echo esc_attr($schedule_date); ?> {
+    grid-template-rows: <?php echo $grid_template_rows; ?>;
 }
+</style>
 
-// Sanitize and retrieve the schedule date from attributes
-$schedule_date = sanitize_text_field($attributes['scheduleDate']);
+
+
+<?php
 
 // The arguments for WP_Query
 $args = array(
