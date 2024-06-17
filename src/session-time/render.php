@@ -27,8 +27,10 @@ $event_time_end = get_post_meta($post_id, 'event_time_end', true); // End time
     $formatted_end_time = $end_datetime->format('H:i') . " (GMT$gmt_offset)"; // Time with simplified GMT offset
     
         // Output the HTML
+        echo '<div class="has-standard-font-size session-time-wrapper">';
         echo '<time datetime="' . esc_attr($start_iso_datetime) . '" data-format="d MMMM yyyy \'at\' HH:mm" data-time-zone="Europe/Paris">' . esc_html($formatted_start_time) . '</time> – ';
         echo '<time datetime="' . esc_attr($end_iso_datetime) . '" data-format="HH:mm (\'GMT\'Z)" data-time-zone="Europe/Paris">' . esc_html($formatted_end_time) . '</time>';
+        echo '</div>';
     }
     
 ?>
