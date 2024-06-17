@@ -95,6 +95,12 @@ export default function Edit ({ attributes, setAttributes }) {
                             onChange={(color) => setAttributes({ metaColor: color })}
                         />
                     </PanelBody>
+                    <PanelBody title={__('Time text Color')}>
+                        <ColorPalette
+                            value={attributes.timeColor}
+                            onChange={(color) => setAttributes({ timeColor: color })}
+                        />
+                    </PanelBody>
                 </Panel>
             </InspectorControls>
             <ServerSideRender

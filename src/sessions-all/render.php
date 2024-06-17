@@ -25,6 +25,7 @@ if (empty($attributes['scheduleDate'])) {
 
 // Sanitize and retrieve the schedule date from attributes
 $schedule_date = sanitize_text_field($attributes['scheduleDate']);
+$time_color = esc_attr($attributes['timeColor']);
 
 ?>
 
@@ -73,6 +74,14 @@ $grid_template_rows .= ";"; // End the CSS rule
 <style>
 .schedule-<?php echo esc_attr($schedule_date); ?> {
     grid-template-rows: <?php echo $grid_template_rows; ?>;
+}
+
+.schedule-<?php echo esc_attr($schedule_date); ?> .time-slot {
+    color: <?php echo $time_color; ?>;
+}
+
+.schedule-<?php echo esc_attr($schedule_date); ?> .track-slot {
+    color: <?php echo $time_color; ?>;
 }
 </style>
 

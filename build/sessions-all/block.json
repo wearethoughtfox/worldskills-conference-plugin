@@ -32,6 +32,10 @@
     "metaColor": {
       "type": "string",
       "default": "#000000"
+    },
+    "timeColor": {
+      "type": "string",
+      "default": "#000000"
     }
   },
   "supports": {
