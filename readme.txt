@@ -23,3 +23,18 @@ This plugin
 3. Adds two custom blocks: 
     1. Get speakers - primarily for use on sessions page to get speakers by custom taxomony (shared by the session)
     2. Get sessions - primarily for use on speakers page to get sessions by custom taxomony (shared by the speakers)
+
+
+session
+
+- Excerpt 
+
+- Session type 
+- Session tags 
+- Session location 
+
+Custom fields 
+- event_date - 2024-09-12
+- event_time - 11:00
+- event_time_end - 12:00
+- track - track-1

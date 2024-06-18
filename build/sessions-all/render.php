@@ -29,7 +29,7 @@ $time_color = esc_attr($attributes['timeColor']);
 
 ?>
 
-<div class="schedule schedule-<?php echo esc_attr($attributes['scheduleDate']); ?>">
+<section class="schedule schedule-<?php echo esc_attr($attributes['scheduleDate']); ?>" id="<?php echo esc_attr($attributes['scheduleDate']); ?>">
 
     <?php
 // Query terms from the custom taxonomy 'session-location'
@@ -189,5 +189,5 @@ while ($current_time <= $end_datetime) {
 ?>
 
 
-</div>
+</section>
 
