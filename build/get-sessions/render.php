@@ -28,7 +28,7 @@ if ($terms && !is_wp_error($terms)) {
     // Execute the query for sessions
     $related_sessions = new WP_Query($args);
     if ($related_sessions->have_posts()) {
-        echo '<h3>Sessions</h3><ul>';
+        echo '<h3 class="wp-block-heading has-medium-font-size has-global-padding" style="font-weight:900; text-transform:uppercase">Sessions</h3><ul class="ws-date-list no-margin-block-start">';
         while ($related_sessions->have_posts()) : $related_sessions->the_post();
             echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
         endwhile;

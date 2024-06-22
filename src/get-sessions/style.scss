@@ -10,3 +10,28 @@
 	color: #fff;
 	padding: 2px;
 }
+
+ul.ws-date-list {
+	list-style: none;
+	padding-top: 0.5rem;
+	padding-inline-start: 4rem;
+}
+
+.ws-date-list li {
+	padding-bottom: 0.5rem;
+}
+
+.ws-date-list li a:hover {
+	text-decoration-thickness: max(3px, .1875rem, .12em);
+}
+
+ul.ws-date-list>li:before {
+	content: "—";
+	/* en dash here */
+	position: absolute;
+	margin-left: -1.5em;
+}
+
+.no-margin-block-start {
+	margin-block-start: 0;
+}

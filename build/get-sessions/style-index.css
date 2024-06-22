@@ -1,6 +1,7 @@
 /*!****************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/get-sessions/style.scss ***!
   \****************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
 /**
  * The following styles get applied both on the front of your site
  * and in the editor.
@@ -11,6 +12,31 @@
   background-color: #21759b;
   color: #fff;
   padding: 2px;
+}
+
+ul.ws-date-list {
+  list-style: none;
+  padding-top: 0.5rem;
+  padding-inline-start: 4rem;
+}
+
+.ws-date-list li {
+  padding-bottom: 0.5rem;
+}
+
+.ws-date-list li a:hover {
+  text-decoration-thickness: max(3px, 0.1875rem, 0.12em);
+}
+
+ul.ws-date-list > li:before {
+  content: "—";
+  /* en dash here */
+  position: absolute;
+  margin-left: -1.5em;
+}
+
+.no-margin-block-start {
+  margin-block-start: 0;
 }
 
 /*# sourceMappingURL=style-index.css.map*/
