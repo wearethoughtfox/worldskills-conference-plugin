@@ -82,7 +82,7 @@ function create_speaker_post_type() {
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields'),
         'show_in_rest'       => true,  // This enables Gutenberg editor for this post type
     );
 
@@ -311,5 +311,17 @@ function populate_session_location_taxonomy() {
     }
 }
 
-// Hook the above function to run on theme setup or plugin activation
+// Order all queries involving the post type 'speaker' by the custom field 'last_name'
 add_action('init', 'populate_session_location_taxonomy', 10);
+
+function order_speaker_by_last_name( $query ) {
+    // Check if the custom post type is 'speaker'
+    if ( $query->get( 'post_type' ) === 'speaker' ) {
+        $query->set( 'meta_key', 'last_name' );
+        $query->set( 'orderby', 'meta_value' );
+        $query->set( 'order', 'ASC' );
+    }
+}
+add_action( 'pre_get_posts', 'order_speaker_by_last_name' );
+
+
