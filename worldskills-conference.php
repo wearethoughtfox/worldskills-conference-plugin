@@ -312,16 +312,26 @@ function populate_session_location_taxonomy() {
 }
 
 // Order all queries involving the post type 'speaker' by the custom field 'last_name'
-add_action('init', 'populate_session_location_taxonomy', 10);
-
 function order_speaker_by_last_name( $query ) {
+    // Check if we are in the admin area 
+    if ( is_admin() ) {
+        return;
+    }
+
     // Check if the custom post type is 'speaker'
     if ( $query->get( 'post_type' ) === 'speaker' ) {
+        // Add a meta query to check if the 'last_name' field exists
+        $meta_query = array(
+            array(
+                'key'     => 'last_name',
+                'compare' => 'EXISTS'
+            )
+        );
+
+        $query->set( 'meta_query', $meta_query );
         $query->set( 'meta_key', 'last_name' );
         $query->set( 'orderby', 'meta_value' );
         $query->set( 'order', 'ASC' );
     }
 }
 add_action( 'pre_get_posts', 'order_speaker_by_last_name' );
-
-
