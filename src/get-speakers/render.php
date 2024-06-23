@@ -28,17 +28,17 @@ if ($terms && !is_wp_error($terms)) {
     // Execute the query for speakers
     $related_speakers = new WP_Query($args);
     if ($related_speakers->have_posts()) {
-        echo '<h3>Speakers</h3><ul>';
+        echo '<h3 class="wp-block-heading has-medium-font-size has-global-padding" style="font-weight:900; text-transform:uppercase">Speakers</h3><ul class="ws-speaker-list no-margin-block-start">';
         while ($related_speakers->have_posts()) : $related_speakers->the_post();
             // Retrieve thumbnail if available
             $thumbnail = has_post_thumbnail() ? get_the_post_thumbnail($post->ID, 'thumbnail') : '';
 
             // Build list item with thumbnail, title, and excerpt
-            echo '<li>' . 
+            echo '<li class="has-standard-font-size">' . 
                     $thumbnail . 
                     '<a href="' . get_permalink() . '">' . get_the_title() . '</a>' .
-                    '<p>' . get_the_excerpt() . '</p>' .
-                 '</li>';
+                    '<p class="no-margin-block-start">' . get_the_excerpt() . '</p>' .
+                 '</li> <hr class="hr-lg">';
         endwhile;
         echo '</ul>';
     } else {

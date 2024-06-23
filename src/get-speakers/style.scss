@@ -10,3 +10,38 @@
 	color: #fff;
 	padding: 2px;
 }
+
+
+ul.ws-speaker-list {
+	list-style: none;
+	padding-top: 1rem;
+	padding-inline-start: 0;
+}
+
+.ws-speaker-list li {
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+
+.ws-speaker-list li a {
+	display: block;
+}
+
+.ws-speaker-list li a:hover {
+	text-decoration-thickness: max(3px, .1875rem, .12em);
+}
+
+.no-margin-block-start {
+	margin-block-start: 0;
+}
+
+.ws-speaker-list hr {
+	width: 100%;
+	margin-top: 0;
+	margin-bottom: 1rem;
+	border-top: 1px solid var(--wp--preset--color--neutral) !important;
+}
+
+.ws-speaker-list hr.hr-lg {
+	border-top: 1px solid var(--wp--preset--color--custom-light-pink) !important;
+}
