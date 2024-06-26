@@ -128,6 +128,7 @@ if ($session_query->have_posts()) {
             'track_end' => $track_end,
             'event_time' => $event_time,
             'event_time_end' => $event_time_end,
+            'excerpt' => get_the_excerpt(),
         );
     }
 } else {
@@ -176,8 +177,9 @@ while ($current_time <= $end_datetime) {
             echo "<div class='session session-{$session['id']} $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
             echo '<h3 class="session-title wp-block-heading has-standard-font-size"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
             echo '<div class="session-meta" style="--session-meta-color: ' . $meta_color . ';">';
-            echo '<span class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</span>';
+            echo '<span class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</span>';          
             echo '</div>';
+            echo '<div class="session-excerpt has-small-font-size">' . wp_kses_post($session['excerpt']) . '</div>';
             echo '</div>';
             
         }

@@ -25,7 +25,6 @@ This plugin
     2. Get sessions - primarily for use on speakers page to get sessions by custom taxomony (shared by the speakers)
 
 
-
  session
 
 - Excerpt 
@@ -39,3 +38,10 @@ Custom fields
 - event_time - 11:00
 - event_time_end - 12:00
 - track - track-1   
+
+Speaker 
+Title: Name 
+Excerpt: Title 
+Session name tags: connect to session 
+Body: bio
+Speaker image: image 
