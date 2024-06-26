@@ -18,6 +18,7 @@ ul.ws-date-list {
   list-style: none;
   padding-top: 0.5rem;
   padding-inline-start: 4rem;
+  padding-right: 0;
 }
 
 .ws-date-list li {
