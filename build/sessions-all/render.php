@@ -260,19 +260,24 @@ while ($current_time <= $end_datetime) {
             echo '<div class="session-excerpt has-small-font-size">' . wp_kses_post($session['excerpt']) . '</div>';
 
             if (!empty($session['tags'])) {
-    echo '<div class="session-icons">';
-    foreach ($session['tags'] as $tag) {
-        $icon_data = get_icon_data_for_tag($tag->slug);
-        if ($icon_data) {
-            echo '<img src="' . esc_url($icon_data['url']) . '" 
-                       alt="' . esc_attr($tag->name) . ' icon" 
-                       class="session-icon"
-                       width="' . esc_attr($icon_data['width']) . '"
-                       height="' . esc_attr($icon_data['height']) . '">';
-        }
-    }
-    echo '</div>';
-}
+                echo '<div class="session-icons">';
+                foreach ($session['tags'] as $tag) {
+                    $icon_data = get_icon_data_for_tag($tag->slug);
+                    echo '<div class="session-icon-outer">';
+                    if ($icon_data) {
+                        echo '<img src="' . esc_url($icon_data['url']) . '" 
+                                   alt="' . esc_attr($tag->name) . ' icon" 
+                                   class="session-icon"
+                                   width="' . esc_attr($icon_data['width']) . '"
+                                   height="' . esc_attr($icon_data['height']) . '"
+                                   popovertarget="popover-' . esc_attr($tag->slug) . '"
+                                   popovertargetaction="show">';
+                        echo '<div id="popover-' . esc_attr($tag->slug) . '" popover>' . esc_html($tag->name) . '</div>';
+                    }
+                    echo '</div>';
+                }
+                echo '</div>';
+            }
 
             echo '</div>';
             

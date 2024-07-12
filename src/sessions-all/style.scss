@@ -75,6 +75,28 @@
 	width: 50px;
 	height: 50px;
 	object-fit: contain;
+	position: relative;
+	z-index: 10;
+	cursor: pointer;
+}
+
+[popover] {
+	padding: 5px 10px;
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 0.8em;
+	color: #333;
+}
+
+/* Styles for browsers that don't support Popover API */
+[popover]:not(:popover-open) {
+	display: none;
+}
+
+
+.session-icon-outer {
+	position: relative;
 }
 
 /*************************
