@@ -64,6 +64,19 @@
 	color: var(--session-meta-color) !important;
 }
 
+.session-icons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 1.5rem;
+}
+
+.session-icon {
+	width: 50px;
+	height: 50px;
+	object-fit: contain;
+}
+
 /*************************
  * GRID SCHEDULE LAYOUT
  *************************/

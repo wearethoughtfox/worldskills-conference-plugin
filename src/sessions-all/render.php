@@ -4,6 +4,8 @@
  */
 ?>
 
+
+
 <?php
 
 if (empty($attributes['startTime']) || empty($attributes['endTime'])) {
@@ -17,7 +19,8 @@ $end_time = sanitize_text_field($attributes['endTime']);
 $start_datetime = new DateTime($start_time);
 $end_datetime = new DateTime($end_time);
 
-// Ensure $attributes['scheduleDate'] is defined and not empty
+
+
 if (empty($attributes['scheduleDate'])) {
     echo 'Please provide a valid schedule date.';
     return;
@@ -26,6 +29,77 @@ if (empty($attributes['scheduleDate'])) {
 // Sanitize and retrieve the schedule date from attributes
 $schedule_date = sanitize_text_field($attributes['scheduleDate']);
 $time_color = esc_attr($attributes['timeColor']);
+
+if (!function_exists('sessions_all_get_icon_filename_for_tag')) {
+    // Map session tags to icon filenames
+function sessions_all_get_icon_filename_for_tag($tag_name) {
+    $icon_map = array(
+        'apprenticeships' => 'WorldSkills_Conference_Icon_Apprenticeships.png',
+        'competitions-of-the-future' => 'WorldSkills_Conference_Icon_Competitions-of-the-future.png',  
+        'digital-and-ai' => 'WorldSkills_Conference_Icon_Digital-and-AI.png',
+        'employers' => 'WorldSkills_Conference_Icon_Employers.png', 
+        'excellence-in-tvet' => 'WorldSkills_Conference_Icon_Excellence-in-TVET.png',  
+        'global-agenda' => 'WorldSkills_Conference_Icon_Global-agenda.png',  
+        'green' => 'WorldSkills_Conference_Icon_Green.png', 
+        'showcase' => 'WorldSkills_Conference_Icon_Showcase.png',  
+        'social-justice' => 'WorldSkills_Conference_Icon_Social-Justice.png',
+        'youth' => 'WorldSkills_Conference_Icon_Youth.png',
+    );
+
+    $tag_name = strtolower($tag_name);
+    return isset($icon_map[$tag_name]) ? $icon_map[$tag_name] : '';
+}
+}
+
+
+// Get attachment ID by filename
+if (!function_exists('get_attachment_id_by_filename')) {
+function get_attachment_id_by_filename($filename) {
+    $args = array(
+        'post_type' => 'attachment',
+        'post_status' => 'inherit',
+        'posts_per_page' => 1,
+        'meta_query' => array(
+            array(
+                'key' => '_wp_attached_file',
+                'value' => $filename,
+                'compare' => 'LIKE'
+            )
+        )
+    );
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        return $query->posts[0]->ID;
+    }
+
+    return null;
+}
+}
+
+if (!function_exists('get_icon_data_for_tag')) {
+    function get_icon_data_for_tag($tag_name) {
+        $filename = sessions_all_get_icon_filename_for_tag($tag_name);
+        
+        if (!empty($filename)) {
+            $attachment_id = get_attachment_id_by_filename($filename);
+            
+            if ($attachment_id) {
+                $image_data = wp_get_attachment_image_src($attachment_id, 'thumbnail');
+                if ($image_data) {
+                    return array(
+                        'url' => $image_data[0],
+                        'width' => $image_data[1],
+                        'height' => $image_data[2]
+                    );
+                }
+            }
+        }
+        
+        return null;
+    }
+}
+
 
 ?>
 
@@ -118,6 +192,9 @@ if ($session_query->have_posts()) {
         $track_end = get_post_meta(get_the_ID(), 'track_end', true);
         $event_time = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time', true)); 
         $event_time_end = str_replace(':', '', get_post_meta(get_the_ID(), 'event_time_end', true)); 
+
+        $tags = wp_get_post_terms(get_the_ID(), 'session-tags');
+
         
         // Store session details in an array
         $sessions[] = array(
@@ -129,6 +206,7 @@ if ($session_query->have_posts()) {
             'event_time' => $event_time,
             'event_time_end' => $event_time_end,
             'excerpt' => get_the_excerpt(),
+            'tags' => $tags,
         );
     }
 } else {
@@ -180,6 +258,22 @@ while ($current_time <= $end_datetime) {
             echo '<span class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</span>';          
             echo '</div>';
             echo '<div class="session-excerpt has-small-font-size">' . wp_kses_post($session['excerpt']) . '</div>';
+
+            if (!empty($session['tags'])) {
+    echo '<div class="session-icons">';
+    foreach ($session['tags'] as $tag) {
+        $icon_data = get_icon_data_for_tag($tag->slug);
+        if ($icon_data) {
+            echo '<img src="' . esc_url($icon_data['url']) . '" 
+                       alt="' . esc_attr($tag->name) . ' icon" 
+                       class="session-icon"
+                       width="' . esc_attr($icon_data['width']) . '"
+                       height="' . esc_attr($icon_data['height']) . '">';
+        }
+    }
+    echo '</div>';
+}
+
             echo '</div>';
             
         }
@@ -192,4 +286,3 @@ while ($current_time <= $end_datetime) {
 
 
 </div>
-
