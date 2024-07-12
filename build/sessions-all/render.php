@@ -101,67 +101,7 @@ if (!function_exists('get_icon_data_for_tag')) {
 }
 
 
-?>
 
-<div class="schedule schedule-<?php echo esc_attr($attributes['scheduleDate']); ?>">
-
-    <?php
-// Query terms from the custom taxonomy 'session-location'
-$terms = get_terms(array(
-    'taxonomy' => 'session-location',  
-    'hide_empty' => false,  
-    'orderby' => 'id',  
-    'order' => 'ASC'    
-));
-
-// Check if there are any terms
-if (!empty($terms) && !is_wp_error($terms)) {
-
-    // Counter for grid-row values
-    $grid_row_counter = 1;
-
-    // Loop through each term
-    foreach ($terms as $term) {
-        // Output markup for each term
-        echo '<span class="track-slot has-small-font-size" aria-hidden="true" style="grid-column: track-' .  $grid_row_counter . '; grid-row: tracks;">' . esc_html($term->name) . '</span>';
-        
-        // Increment the grid row counter
-        $grid_row_counter++;
-    }
-
-} 
-?>
-
-<?php
-// Generate the CSS for grid-template-rows
-$grid_template_rows = "[tracks] auto";
-$current_time = clone $start_datetime;
-while ($current_time <= $end_datetime) {
-    $time_label = $current_time->format('Hi');
-    $grid_template_rows .= " [time-$time_label] 1fr";
-    $current_time->add(new DateInterval('PT15M')); // Increment by 15 minutes
-}
-$grid_template_rows .= ";"; // End the CSS rule
-
-?>
-
-<style>
-.schedule-<?php echo esc_attr($schedule_date); ?> {
-    grid-template-rows: <?php echo $grid_template_rows; ?>;
-}
-
-.schedule-<?php echo esc_attr($schedule_date); ?> .time-slot {
-    color: <?php echo $time_color; ?>;
-}
-
-.schedule-<?php echo esc_attr($schedule_date); ?> .track-slot {
-    color: <?php echo $time_color; ?>;
-}
-</style>
-
-
-
-<?php
 
 // The arguments for WP_Query
 $args = array(
@@ -213,8 +153,89 @@ if ($session_query->have_posts()) {
     echo '<p>No sessions found.</p>'; // Message if no posts found
 }
 
+// Gather all unique tags
+$all_tags = array();
+foreach ($sessions as $session) {
+    if (!empty($session['tags']) && is_array($session['tags'])) {
+        foreach ($session['tags'] as $tag) {
+            if (!isset($all_tags[$tag->term_id])) {
+                $all_tags[$tag->term_id] = $tag;
+            }
+        }
+    }
+}
+
 // Restore original post data, important if using multiple queries
 wp_reset_postdata();
+
+
+?>
+
+<div class="schedule schedule-<?php echo esc_attr($attributes['scheduleDate']); ?>">
+
+    <?php
+// Query terms from the custom taxonomy 'session-location'
+$terms = get_terms(array(
+    'taxonomy' => 'session-location',  
+    'hide_empty' => false,  
+    'orderby' => 'id',  
+    'order' => 'ASC'    
+));
+
+// Check if there are any terms
+if (!empty($terms) && !is_wp_error($terms)) {
+
+    // Counter for grid-row values
+    $grid_row_counter = 1;
+
+    // Loop through each term
+    foreach ($terms as $term) {
+        // Output markup for each term
+        echo '<span class="track-slot has-small-font-size" aria-hidden="true" style="grid-column: track-' .  $grid_row_counter . '; grid-row: tracks;">' . esc_html($term->name) . '</span>';
+        
+        // Increment the grid row counter
+        $grid_row_counter++;
+    }
+
+} 
+
+
+?>
+
+
+
+<?php
+// Generate the CSS for grid-template-rows
+$grid_template_rows = "[tracks] auto";
+$current_time = clone $start_datetime;
+while ($current_time <= $end_datetime) {
+    $time_label = $current_time->format('Hi');
+    $grid_template_rows .= " [time-$time_label] 1fr";
+    $current_time->add(new DateInterval('PT15M')); // Increment by 15 minutes
+}
+$grid_template_rows .= ";"; // End the CSS rule
+
+?>
+
+<style>
+.schedule-<?php echo esc_attr($schedule_date); ?> {
+    grid-template-rows: <?php echo $grid_template_rows; ?>;
+}
+
+.schedule-<?php echo esc_attr($schedule_date); ?> .time-slot {
+    color: <?php echo $time_color; ?>;
+}
+
+.schedule-<?php echo esc_attr($schedule_date); ?> .track-slot {
+    color: <?php echo $time_color; ?>;
+}
+</style>
+
+
+
+<?php
+
+
 
 // Generate time slots every 30 minutes
 $current_time = clone $start_datetime;
