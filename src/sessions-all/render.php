@@ -29,6 +29,7 @@ if (empty($attributes['scheduleDate'])) {
 // Sanitize and retrieve the schedule date from attributes
 $schedule_date = sanitize_text_field($attributes['scheduleDate']);
 $time_color = esc_attr($attributes['timeColor']);
+$tag_bg_color = esc_attr($attributes['tagbgColor']);
 
 if (!function_exists('sessions_all_get_icon_filename_for_tag')) {
     // Map session tags to icon filenames
@@ -229,6 +230,10 @@ $grid_template_rows .= ";"; // End the CSS rule
 .schedule-<?php echo esc_attr($schedule_date); ?> .track-slot {
     color: <?php echo $time_color; ?>;
 }
+
+.schedule-<?php echo esc_attr($schedule_date); ?> .session-tag-item {
+    background-color: <?php echo $tag_bg_color; ?>;
+}
 </style>
 
 
@@ -281,20 +286,17 @@ while ($current_time <= $end_datetime) {
             echo '<div class="session-excerpt has-small-font-size">' . wp_kses_post($session['excerpt']) . '</div>';
 
             if (!empty($session['tags'])) {
-                echo '<div class="session-icons">';
+                echo '<div class="session-tags">';
                 foreach ($session['tags'] as $tag) {
                     $icon_data = get_icon_data_for_tag($tag->slug);
-                    echo '<div class="session-icon-outer">';
+                    echo '<div class="session-tag-item">';
                     if ($icon_data) {
                         echo '<img src="' . esc_url($icon_data['url']) . '" 
                                    alt="' . esc_attr($tag->name) . ' icon" 
-                                   class="session-icon"
-                                   width="' . esc_attr($icon_data['width']) . '"
-                                   height="' . esc_attr($icon_data['height']) . '"
-                                   popovertarget="popover-' . esc_attr($tag->slug) . '"
-                                   popovertargetaction="show">';
-                        echo '<div id="popover-' . esc_attr($tag->slug) . '" popover>' . esc_html($tag->name) . '</div>';
+                                   class="session-tag-icon"
+                                   width="20" height="20">';
                     }
+                    echo '<span class="session-tag-name">' . esc_html($tag->name) . '</span>';
                     echo '</div>';
                 }
                 echo '</div>';

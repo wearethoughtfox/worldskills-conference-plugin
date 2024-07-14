@@ -101,6 +101,12 @@ export default function Edit ({ attributes, setAttributes }) {
                             onChange={(color) => setAttributes({ timeColor: color })}
                         />
                     </PanelBody>
+                    <PanelBody title={__('Tag background Color')}>
+                        <ColorPalette
+                            value={attributes.tagbgColor}
+                            onChange={(color) => setAttributes({ tagbgColor: color })}
+                        />
+                    </PanelBody>
                 </Panel>
             </InspectorControls>
             <ServerSideRender

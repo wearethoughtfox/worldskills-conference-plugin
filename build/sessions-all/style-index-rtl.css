@@ -65,39 +65,33 @@
   color: var(--session-meta-color) !important;
 }
 
-.session-icons {
+.schedule-tags-container {
+  margin-bottom: 20px;
+}
+
+.session-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+  gap: 10px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
 }
 
-.session-icon {
-  width: 50px;
-  height: 50px;
-  -o-object-fit: contain;
-     object-fit: contain;
-  position: relative;
-  z-index: 10;
-  cursor: pointer;
-}
-
-[popover] {
+.session-tag-item {
+  display: flex;
+  align-items: center;
   padding: 5px 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.8em;
-  color: #333;
 }
 
-/* Styles for browsers that don't support Popover API */
-[popover]:not(:popover-open) {
-  display: none;
+.session-tag-icon {
+  margin-left: 5px;
+  width: 25px;
+  height: 25px;
 }
 
-.session-icon-outer {
-  position: relative;
+.session-tag-name {
+  font-size: 0.875rem;
 }
 
 /*************************

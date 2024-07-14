@@ -36,6 +36,10 @@
     "timeColor": {
       "type": "string",
       "default": "#000000"
+    },
+    "tagbgColor": {
+      "type": "string",
+      "default": "#F7F7F7"
     }
   },
   "supports": {
