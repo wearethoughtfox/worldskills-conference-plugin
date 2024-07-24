@@ -138,7 +138,7 @@ $grid_template_rows = "[tracks] auto";
 $current_time = clone $start_datetime;
 while ($current_time <= $end_datetime) {
     $time_label = $current_time->format('Hi');
-    $grid_template_rows .= " [time-$time_label] 1fr";
+    $grid_template_rows .= " [time-$time_label] 0.5fr";
     $current_time->add(new DateInterval('PT15M')); // Increment by 15 minutes
 }
 $grid_template_rows .= ";"; // End the CSS rule
@@ -206,7 +206,13 @@ while ($current_time <= $end_datetime) {
             $meta_color = esc_attr($attributes['metaColor']);
 
             echo "<div class='session session-{$session['id']} $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
-            echo '<h3 class="session-title wp-block-heading has-standard-font-size"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
+           
+            $session_types = get_the_terms($session['id'], 'session-type');
+            if ($session_types && !is_wp_error($session_types)) {
+                echo '<div class="session-type has-small-font-size"  style="margin-top: 1rem; margin-bottom: .25rem;">' . esc_html($session_types[0]->name) . '</div>';
+            }
+           
+            echo '<h3 class="session-title wp-block-heading has-standard-font-size" style="margin-top: 0;"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
             echo '<div class="session-meta" style="--session-meta-color: ' . $meta_color . ';">';
             echo '<span class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</span>';          
             echo '</div>';
