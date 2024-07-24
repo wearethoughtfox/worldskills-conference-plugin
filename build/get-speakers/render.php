@@ -48,6 +48,7 @@ if ($terms && !is_wp_error($terms)) {
                 'boost' => get_post_meta($speaker->ID, 'speaker_boost', true),
                 'reduce' => get_post_meta($speaker->ID, 'speaker_reduce', true),
                 'last_name' => strtolower(get_post_meta($speaker->ID, 'last_name', true)),
+                'is_moderator' => boolval(get_post_meta($speaker->ID, 'is_moderator', true)),
             );
         }, $speakers);
 
@@ -85,10 +86,15 @@ if ($terms && !is_wp_error($terms)) {
             }
             
             // Title and Excerpt wrapper
-            echo '<div style="flex: 1; padding-left: 20px;">';
+            echo '<div style="flex: 1;">';
             
             // Title
             echo '<a href="' . get_permalink($speaker_id) . '" style="font-weight: bold; display: block; margin-bottom: 5px;">' . $speaker_data['post_title'] . '</a>';
+            
+            // Moderator tag if applicable
+            if ($speaker_data['is_moderator']) {
+                echo '<div class="has-small-font-size" style="background-color: #F7F7F7; display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 4px; margin-bottom: .75rem;">Moderator</div>';
+            }
             
             // Excerpt with new styling
             echo '<div style="line-height:1.2;" class="has-small-font-size has-inria-serif-font-family">';
@@ -104,10 +110,6 @@ if ($terms && !is_wp_error($terms)) {
             echo '<hr class="hr-lg">';
         }
         
-        
-        
-        
-
         echo '</ul>';
     } else {
         echo '<p>No related speakers found.</p>';
