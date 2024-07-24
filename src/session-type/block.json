@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Session Type",
 	"category": "worldskills-conference",
-	"icon": "clock",
+	"icon": "category",
 	"description": "Custom block for WorldSkills conference to show session type.",
 	"example": {},
 	"attributes": {

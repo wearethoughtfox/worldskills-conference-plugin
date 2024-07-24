@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "Session Tags",
   "category": "worldskills-conference",
-  "icon": "clock",
+  "icon": "tag",
   "description": "Custom block for WorldSkills conference to show all session tags with icons.",
   "example": {},
   "attributes": {
