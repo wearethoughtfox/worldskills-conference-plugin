@@ -48,3 +48,20 @@ To install the plugin
 6. Plugin already exists - continue 
 7. Select the zip file again 
 8. Replace current with uploaded 
+
+
+Backgrounds 
+
+ws-background-wings
+
+ws-background-trumpet
+
+ws-background-spiral
+
+
+Speaker sorting 
+This sorting method provides a flexible way to prioritize certain speakers (via boost), de-prioritize others (via reduce), and maintain an alphabetical order for the rest.
+
+- All speakers with custom field speaker_boost will come first, sorted from highest boost to lowest.
+- Then, speakers without boost or reduce will be sorted by custom field last_name.
+- Finally, speakers with speaker_reduce will be sorted from lowest reduce to highest.

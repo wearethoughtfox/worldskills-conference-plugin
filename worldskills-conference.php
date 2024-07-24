@@ -37,16 +37,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 add_filter( 'block_categories_all', 'ws_register_block_category', 10, 2 );
 
+require_once plugin_dir_path(__FILE__) . 'includes/tag-functions.php';
 
- function worldskills_worldskills_conference_block_init() {
+ function worldskills_conference_block_init() {
 	register_block_type( __DIR__ . '/build/get-sessions' );
 	register_block_type( __DIR__ . '/build/get-speakers' );
     register_block_type( __DIR__ . '/build/session-time' );
     register_block_type( __DIR__ . '/build/session-display' );
     register_block_type( __DIR__ . '/build/sessions-all' );
+    register_block_type( __DIR__ . '/build/session-tags' );
+    register_block_type( __DIR__ . '/build/session-type' );
 }
-add_action( 'init', 'worldskills_worldskills_conference_block_init' );
+add_action( 'init', 'worldskills_conference_block_init' );
 
+function worldskills_conference_enqueue_custom_styles() {
+    wp_enqueue_style(
+        'worldskills-conference-custom-styles',
+        plugin_dir_url(__FILE__) . 'worldskills-conference-custom-styles.css',
+        array(),
+        '1.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'worldskills_conference_enqueue_custom_styles');
 
 
 

@@ -1,0 +1,29 @@
+.schedule-tags-container {
+    margin-bottom: 20px;
+}
+
+.session-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.session-tag-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #F7F7F7;
+}
+
+.session-tag-icon {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+}
+
+.session-tag-name {
+    font-size: 0.875rem;
+}

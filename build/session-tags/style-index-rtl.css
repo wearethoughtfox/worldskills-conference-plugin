@@ -7,29 +7,3 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.schedule-tags-container {
-  margin-bottom: 20px;
-}
-
-.schedule-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.session-tag-item {
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-.session-tag-icon {
-  margin-left: 5px;
-  width: 30px;
-  height: 30px;
-}
-
-.session-tag-name {
-  font-size: 0.9em;
-}

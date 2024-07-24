@@ -40,30 +40,13 @@ import './editor.scss';
  */
 export default function Edit ({ attributes, setAttributes }) {
 
-    const onChangeTitle = (title) => {
-        setAttributes({ title });
-    };
-
 	const blockProps = useBlockProps();
 
     return (
 		<div {...blockProps}> {/* Wrap everything in a div to ensure valid JSX */}
-            <InspectorControls>
-                <Panel>
-                    <PanelBody title={__("Settings", "wpdev")} initialOpen={true}>
-                        <PanelRow>
-                            <TextControl
-                                label="Title"
-                                value={attributes.title}
-                                onChange={onChangeTitle}
-                                placeholder="Enter title here"
-                            />
-                        </PanelRow>
-                    </PanelBody>
-                </Panel>
-            </InspectorControls>
+            
             <ServerSideRender
-                block="worldskills/session-tags"
+                block="worldskills/session-type"
                 attributes={attributes}
             />
         </div>
