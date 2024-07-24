@@ -1,11 +1,4 @@
 === Worldskills Conference ===
-Contributors:      The WordPress Contributors
-Tags:              block
-Tested up to:      6.1
-Stable tag:        0.1.0
-License:           GPL-2.0-or-later
-License URI:       https://www.gnu.org/licenses/gpl-2.0.html
-
 
 1. Create plugin 
 `npx @wordpress/create-block worldskills-conference --namespace=worldskills --variant=dynamic`
@@ -45,3 +38,13 @@ Excerpt: Title
 Session name tags: connect to session 
 Body: bio
 Speaker image: image 
+
+To install the plugin
+1. Download from github
+2. Open Zip
+3. Rename to worldskills-conference
+4. Zip up
+5. Upload plugin 
+6. Plugin already exists - continue 
+7. Select the zip file again 
+8. Replace current with uploaded 
