@@ -60,18 +60,54 @@ if ($terms && !is_wp_error($terms)) {
         ));
 
         echo '<h3 class="wp-block-heading has-medium-font-size has-global-padding" style="font-weight:900; text-transform:uppercase">Speakers</h3><ul class="ws-speaker-list no-margin-block-start">';
+       
         foreach ($sorted_speakers as $speaker_data) {
             $speaker_id = $speaker_data['ID'];
-            // Retrieve thumbnail if available
-            $thumbnail = has_post_thumbnail($speaker_id) ? get_the_post_thumbnail($speaker_id, 'thumbnail') : '';
-    
-            // Build list item with thumbnail, title, and excerpt
-            echo '<li class="has-standard-font-size">' . 
-                    $thumbnail . 
-                    '<a href="' . get_permalink($speaker_id) . '">' . $speaker_data['post_title'] . '</a>' .
-                    '<p class="no-margin-block-start">' . get_the_excerpt($speaker_id) . '</p>' .
-                 '</li> <hr class="hr-lg">';
+            
+            // Start the list item
+            echo '<li class="has-standard-font-size" style="display: flex; align-items: center;">';
+        
+            // Thumbnail
+            if (has_post_thumbnail($speaker_id)) {
+                $thumbnail_id = get_post_thumbnail_id($speaker_id);
+                $full_image_url = wp_get_attachment_image_src($thumbnail_id, 'full');
+                $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+                
+                if ($full_image_url) {
+                    echo '<div style="flex: 0 0 200px; overflow: hidden;">';
+                    echo '<a href="' . get_permalink($speaker_id) . '" target="_self" style="display: block; width: 200px; height: 200px;">';
+                    echo '<img src="' . esc_url($full_image_url[0]) . '" 
+                               alt="' . esc_attr($alt_text) . '" 
+                               style="width: 100%; height: 100%; object-fit: contain; object-position: top;">';
+                    echo '</a>';
+                    echo '</div>';
+                }
+            }
+            
+            // Title and Excerpt wrapper
+            echo '<div style="flex: 1; padding-left: 20px;">';
+            
+            // Title
+            echo '<a href="' . get_permalink($speaker_id) . '" style="font-weight: bold; display: block; margin-bottom: 5px;">' . $speaker_data['post_title'] . '</a>';
+            
+            // Excerpt with new styling
+            echo '<div style="line-height:1.2;" class="has-small-font-size has-inria-serif-font-family">';
+            echo '<p style="margin: 0;">' . get_the_excerpt($speaker_id) . '</p>';
+            echo '</div>';
+            
+            echo '</div>';
+            
+            // Close the list item
+            echo '</li>';
+            
+            // Horizontal rule
+            echo '<hr class="hr-lg">';
         }
+        
+        
+        
+        
+
         echo '</ul>';
     } else {
         echo '<p>No related speakers found.</p>';
