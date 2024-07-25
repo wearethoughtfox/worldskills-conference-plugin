@@ -93,7 +93,7 @@ if ($terms && !is_wp_error($terms)) {
             
             // Moderator tag if applicable
             if ($speaker_data['is_moderator']) {
-                echo '<div class="has-small-font-size" style="background-color: #F7F7F7; display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 4px; margin-bottom: .75rem;">Moderator</div>';
+                echo '<div class="has-small-font-size moderator-tag" style="margin-bottom: .75rem;">Moderator</div>';
             }
             
             // Excerpt with new styling

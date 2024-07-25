@@ -27,3 +27,15 @@
 .session-tag-name {
     font-size: 0.875rem;
 }
+
+.moderator-tag {
+    background-color: #F7F7F7;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.type-speaker.wp-block-post div {
+    padding-bottom: 5px;
+}

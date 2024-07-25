@@ -347,3 +347,15 @@ function order_speaker_by_last_name( $query ) {
     }
 }
 add_action( 'pre_get_posts', 'order_speaker_by_last_name' );
+
+
+// Transform the is_moderator custom field 'true' to the moderator element
+add_filter('meta_field_block_get_block_content', function ($block_content, $attributes, $block, $object_id, $object_type) {
+    $field_name = $attributes['fieldName'] ?? '';
+
+    if ('is_moderator' === $field_name && $block_content === 'true') {
+        $block_content = '<div class="has-small-font-size moderator-tag">Moderator</div>';
+    }
+
+    return $block_content;
+}, 10, 5);
