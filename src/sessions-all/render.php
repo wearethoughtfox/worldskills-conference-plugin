@@ -81,6 +81,18 @@ if ($session_query->have_posts()) {
     echo '<p>No sessions found.</p>'; // Message if no posts found
 }
 
+
+// Gather all compressed sessions
+$compressed_time_slots = array();
+foreach ($sessions as $session) {
+    $is_compressed = get_post_meta($session['id'], 'compressed_session', true);
+    if ($is_compressed) {
+        $start_time = $session['event_time'];
+        $end_time = $session['event_time_end'];
+        $compressed_time_slots[] = array('start' => $start_time, 'end' => $end_time);
+    }
+}
+
 // Gather all unique tags
 $all_tags = array();
 foreach ($sessions as $session) {
@@ -126,20 +138,38 @@ if (!empty($terms) && !is_wp_error($terms)) {
     }
 
 } 
-
-
 ?>
-
-
 
 <?php
 // Generate the CSS for grid-template-rows
+if (!function_exists('is_compressed_time_slot')) {
+function is_compressed_time_slot($time, $compressed_slots) {
+    $time_string = $time->format('Hi');
+    foreach ($compressed_slots as $slot) {
+        if ($time_string >= $slot['start'] && $time_string < $slot['end']) {
+            return true;
+        }
+    }
+    return false;
+}
+}
+
 $grid_template_rows = "[tracks] auto";
 $current_time = clone $start_datetime;
+$row_counter = 1;
+
 while ($current_time <= $end_datetime) {
     $time_label = $current_time->format('Hi');
-    $grid_template_rows .= " [time-$time_label] 0.5fr";
-    $current_time->add(new DateInterval('PT15M')); // Increment by 15 minutes
+    $is_compressed = is_compressed_time_slot($current_time, $compressed_time_slots);
+    
+    if ($is_compressed) {
+        $grid_template_rows .= " [time-$time_label] 0.1fr"; // Significantly smaller
+    } else {
+        $grid_template_rows .= " [time-$time_label] 1fr"; // Normal size
+    }
+    
+    $current_time->add(new DateInterval('PT15M'));
+    $row_counter++;
 }
 $grid_template_rows .= ";"; // End the CSS rule
 
@@ -167,18 +197,16 @@ $grid_template_rows .= ";"; // End the CSS rule
 
 <?php
 
-
-
 // Generate time slots every 30 minutes
 $current_time = clone $start_datetime;
 while ($current_time <= $end_datetime) {
     $time_slot = $current_time->format('H:i'); // Format as "09:00", "09:30", etc.
     $grid_row = 'time-' . str_replace(':', '', $time_slot);
 
-    // Output time slot heading
-    echo '<h2 class="time-slot has-small-font-size" style="grid-row: ' . $grid_row . ';">' . date('H:i', strtotime($time_slot)) . '</h2>' . "\n";
-
-
+    $is_compressed = is_compressed_time_slot($current_time, $compressed_time_slots);
+    $time_class = $is_compressed ? 'time-slot compressed-time' : 'time-slot';
+    echo '<h2 class="' . $time_class . ' has-small-font-size" style="grid-row: ' . $grid_row . ';">' . $time_slot . '</h2>' . "\n";
+    
     // Loop through the sessions and output those that fall within the current time slot
     foreach ($sessions as $session) {
         // Convert session times to DateTime objects for comparison
@@ -205,8 +233,11 @@ while ($current_time <= $end_datetime) {
             $link_color = esc_attr($attributes['linkColor']);
             $meta_color = esc_attr($attributes['metaColor']);
 
-            echo "<div class='session session-{$session['id']} $grid_column' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
-           
+            $is_compressed = get_post_meta($session['id'], 'compressed_session', true);
+            $compressed_class = $is_compressed ? 'compressed-session' : '';
+    
+            echo "<div class='session session-{$session['id']} $grid_column $compressed_class' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
+    
             $session_types = get_the_terms($session['id'], 'session-type');
             if ($session_types && !is_wp_error($session_types)) {
                 echo '<div class="session-type has-small-font-size"  style="margin-top: 1rem; margin-bottom: .25rem;">' . esc_html($session_types[0]->name) . '</div>';
