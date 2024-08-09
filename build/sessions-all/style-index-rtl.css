@@ -117,3 +117,10 @@
     }
   }
 }
+.special-session-true {
+  background-color: #f7f7f7;
+}
+
+.special-session-true:hover {
+  transform: none;
+}

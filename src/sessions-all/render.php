@@ -75,6 +75,7 @@ if ($session_query->have_posts()) {
             'event_time_end' => $event_time_end,
             'excerpt' => get_the_excerpt(),
             'tags' => $tags,
+            'special_session' => get_post_meta(get_the_ID(), 'special_session', true),
         );
     }
 } else {
@@ -235,13 +236,26 @@ while ($current_time <= $end_datetime) {
 
             $is_compressed = get_post_meta($session['id'], 'compressed_session', true);
             $compressed_class = $is_compressed ? 'compressed-session' : '';
-    
-            echo "<div class='session session-{$session['id']} $grid_column $compressed_class' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
+            
+            $special_session = $session['special_session'];
+            $special_class = $special_session ? "special-session-{$special_session}" : '';
+
+            echo "<div class='session session-{$session['id']} $grid_column $compressed_class $special_class' style='grid-column: $grid_column; grid-row: $grid_row_start / $grid_row_end; --session-bg-color: $background_color; --session-link-color: $link_color;'>";
     
             $session_types = get_the_terms($session['id'], 'session-type');
             if ($session_types && !is_wp_error($session_types)) {
                 echo '<div class="session-type has-small-font-size"  style="margin-top: 1rem; margin-bottom: .25rem;">' . esc_html($session_types[0]->name) . '</div>';
             }
+
+            if ($special_session) {
+                // For breaks and lunches, just display the title without a link
+                echo '<h3 class="session-title wp-block-heading has-small-font-size">' . esc_html($session['title']) . '</h3>';
+                
+                // Optionally, you can add the time if you want
+                echo '<div class="session-time has-small-font-size">' . date('H:i', strtotime($session['event_time'])) . ' - ' . date('H:i', strtotime($session['event_time_end'])) . '</div>';
+            } 
+            
+            else {
            
             echo '<h3 class="session-title wp-block-heading has-standard-font-size" style="margin-top: 0;"><a href="' . esc_url($session['permalink']) . '">' . esc_html($session['title']) . '</a></h3>';
             echo '<div class="session-meta" style="--session-meta-color: ' . $meta_color . ';">';
@@ -266,7 +280,7 @@ while ($current_time <= $end_datetime) {
                 echo '</div>';
             }
             
-
+        }
             echo '</div>';
             
         }
