@@ -112,7 +112,7 @@ if ($terms && !is_wp_error($terms)) {
         
         echo '</ul>';
     } else {
-        echo '<p>No related speakers found.</p>';
+        echo '<p class="screen-reader-text">No speakers found for this session.</p>';
     }
     wp_reset_postdata();  // Reset post data after custom query
     

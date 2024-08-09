@@ -34,7 +34,7 @@ if ($terms && !is_wp_error($terms)) {
         endwhile;
         echo '</ul>';
     } else {
-        echo '<p>No related sessions found.</p>';
+        echo '<p class="screen-reader-text">This speaker does not seem to be involved in any sessions.</p>';
     }
     wp_reset_postdata();  // Reset post data after custom query
 }
