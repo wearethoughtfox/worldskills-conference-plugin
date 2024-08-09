@@ -13,6 +13,7 @@
 	background-color: var(--session-bg-color);
 	position: relative;
 	transition: transform 0.5s;
+	z-index: 1;
 }
 
 .session::after {
@@ -125,6 +126,7 @@
 
 .special-session-true {
 	background-color: #f7f7f7;
+	z-index: 0;
 }
 
 .special-session-true:hover {
