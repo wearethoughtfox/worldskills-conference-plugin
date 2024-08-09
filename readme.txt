@@ -39,6 +39,11 @@ Notes
 - event_time_end - 12:00
 - track - track-1   
 
+### Session tweaks
+- compressed_session = true will tighten the vertical gaps 
+- special_session = true will make the session grey and no link 
+
+
 ## Speaker data
 - Title: Name 
 - Excerpt: Title 
