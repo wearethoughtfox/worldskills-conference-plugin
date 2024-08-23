@@ -137,4 +137,9 @@
   transform: none;
 }
 
+.special-session-true:hover::after,
+.special-session-true:focus::after {
+  opacity: 0;
+}
+
 /*# sourceMappingURL=style-index.css.map*/

@@ -142,3 +142,8 @@
 .special-session-true:hover {
 	transform: none;
 }
+
+.special-session-true:hover::after,
+.special-session-true:focus::after {
+	opacity: 0;
+}
