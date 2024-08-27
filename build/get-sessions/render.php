@@ -4,12 +4,19 @@
  */
 ?>
 <?php
+
+// Ensure we have access to the global $post object
+global $post;
+
+// Check if $post is set and is an object before proceeding
+if (isset($post) && is_object($post)) {
+
 // Set the target post type for the query to 'session'
 $target_post_type = 'session';
 
 // Get the terms related to the current speaker post
 $terms = get_the_terms($post->ID, 'conference');
-if ($terms && !is_wp_error($terms)) {
+if ($terms && !is_wp_error($terms) && !empty($terms)) {
     $term_ids = wp_list_pluck($terms, 'term_id');
 
     // Setup the query arguments to get sessions
@@ -37,5 +44,9 @@ if ($terms && !is_wp_error($terms)) {
         echo '<p class="screen-reader-text">This speaker does not seem to be involved in any sessions.</p>';
     }
     wp_reset_postdata();  // Reset post data after custom query
+}
+
+} else {
+    echo '<p class="screen-reader-text">Unable to retrieve session information for this speaker.</p>';
 }
 ?>
