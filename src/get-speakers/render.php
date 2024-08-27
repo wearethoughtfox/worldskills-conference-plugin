@@ -6,8 +6,16 @@
 // Set the target post type for the query to 'speaker'
 $target_post_type = 'speaker';
 
-// Get the terms related to the current post (assumed to be a session)
-$terms = get_the_terms($post->ID, 'conference');
+// check for the $post variable
+$post_id = isset($post) && is_object($post) ? $post->ID : get_the_ID();
+
+if (!$post_id) {
+    echo '<p class="has-small-font-size">Error: Unable to determine the current post.</p>';
+    return;
+}
+
+// get the terms using checked post variable 
+$terms = get_the_terms($post_id, 'conference');
 
 if ($terms && !is_wp_error($terms)) {
     $term_ids = wp_list_pluck($terms, 'term_id');
@@ -117,6 +125,6 @@ if ($terms && !is_wp_error($terms)) {
     wp_reset_postdata();  // Reset post data after custom query
     
 } else {
-    echo '<p>No conference terms found for this session.</p>';
+    echo '<p class="screen-reader-text">No speakers found for this session.</p>';
 }
 ?>
