@@ -16,7 +16,7 @@ $target_post_type = 'session';
 
 if (taxonomy_exists('conference')) {
 // Get the terms related to the current speaker post
-$terms = get_the_terms($current_post->ID, 'conference');
+$terms = get_the_terms($current_object->ID, 'conference');
 
 if ($terms && !is_wp_error($terms) && !empty($terms)) {
     $term_ids = wp_list_pluck($terms, 'term_id');
