@@ -6,10 +6,13 @@
 // Set the target post type for the query to 'speaker'
 $target_post_type = 'speaker';
 
-// check for the $post variable
-$post_id = isset($post) && is_object($post) ? $post->ID : get_the_ID();
+// Get the current object
+$current_object = get_queried_object();
 
-if (!$post_id) {
+// Check if we have a valid post object
+if ($current_object instanceof WP_Post) {
+    $post_id = $current_object->ID;
+} else {
     echo '<p class="has-small-font-size">Error: Unable to determine the current post.</p>';
     return;
 }
@@ -97,17 +100,21 @@ if ($terms && !is_wp_error($terms)) {
             echo '<div style="flex: 1;">';
             
             // Title
-            echo '<a href="' . get_permalink($speaker_id) . '" style="font-weight: bold; display: block; margin-bottom: 5px;">' . $speaker_data['post_title'] . '</a>';
-            
+        
+            echo '<a href="' . esc_url(get_permalink($speaker_id)) . '" style="font-weight: bold; display: block; margin-bottom: 5px;">' . esc_html($speaker_data['post_title']) . '</a>';
+
             // Moderator tag if applicable
             if ($speaker_data['is_moderator']) {
                 echo '<div class="has-small-font-size moderator-tag" style="margin-bottom: .75rem;">Moderator</div>';
             }
             
             // Excerpt with new styling
-            echo '<div style="line-height:1.2;" class="has-small-font-size has-inria-serif-font-family">';
-            echo '<p style="margin: 0;">' . get_the_excerpt($speaker_id) . '</p>';
-            echo '</div>';
+            $excerpt = get_the_excerpt($speaker_id);
+            if (is_string($excerpt)) {
+                echo '<div style="line-height:1.2;" class="has-small-font-size has-inria-serif-font-family">';
+                echo '<p style="margin: 0;">' . esc_html($excerpt) . '</p>';
+                echo '</div>';
+            }
             
             echo '</div>';
             
