@@ -11,7 +11,7 @@ $event_time_start = get_post_meta($post_id, 'event_time', true); // Start time
 $event_time_end = get_post_meta($post_id, 'event_time_end', true); // End time
     
     if (!empty($event_date) && !empty($event_time_start) && !empty($event_time_end)) {
-        $timezone = new DateTimeZone('Europe/Paris'); // Timezone
+        $timezone = new DateTimeZone('Europe/Zagreb'); // Timezone
         $start_datetime = new DateTime($event_date . 'T' . $event_time_start, $timezone);
         $end_datetime = new DateTime($event_date . 'T' . $event_time_end, $timezone);
     
