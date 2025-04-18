@@ -287,7 +287,7 @@ while ($current_time <= $end_datetime) {
     }
 
     // Add 30 minutes to the current time
-    $current_time->add(new DateInterval('PT15M'));
+    $current_time->add(new DateInterval('PT30M'));
 }
 ?>
 
