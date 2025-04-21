@@ -4,7 +4,7 @@
  * Description:       Custom blocks for the WorldSkills Conference.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.5.5
+ * Version:           0.5.6
  * Author:            WorldSkills
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -359,3 +359,67 @@ add_filter('meta_field_block_get_block_content', function ($block_content, $attr
 
     return $block_content;
 }, 10, 5);
+
+
+// Use placeholder image for speakers without a featured image - speaker-placeholder.png
+add_filter('post_thumbnail_html', 'speaker_default_image_fallback', 10, 5);
+function speaker_default_image_fallback($html, $post_id, $post_thumbnail_id, $size, $attr) {
+    if (!$post_thumbnail_id && get_post_type($post_id) === 'speaker') {
+        // Try to get the placeholder image by filename
+        $placeholder_id = get_placeholder_by_filename('speaker-placeholder.png', true);
+        
+        if ($placeholder_id) {
+            // Use wp_get_attachment_image to get the same formatting as regular featured images
+            // This will include all the srcset, sizes, and other attributes
+            $placeholder_html = wp_get_attachment_image(
+                $placeholder_id, 
+                $size, 
+                false, 
+                array(
+                    'class' => 'attachment-' . esc_attr($size) . ' size-' . esc_attr($size) . ' wp-post-image',
+                    'alt' => get_the_title($post_id) . ' Placeholder',
+                    'style' => 'width:100%;height:100%;object-fit:contain;'
+                )
+            );
+            
+            // If we're in a link context, maintain that
+            if (strpos($html, '<a') === 0) {
+                // Extract the opening <a> tag from original HTML
+                preg_match('/<a[^>]+>/', $html, $matches);
+                $opening_link = $matches[0] ?? '';
+                
+                // Use the same link structure
+                if ($opening_link) {
+                    $html = $opening_link . $placeholder_html . '</a>';
+                } else {
+                    $html = $placeholder_html;
+                }
+            } else {
+                $html = $placeholder_html;
+            }
+        }
+    }
+    return $html;
+}
+
+// Helper function to find an image in the media library by filename
+function get_placeholder_by_filename($filename, $return_id = false) {
+    $args = array(
+        'post_type'      => 'attachment',
+        'post_status'    => 'inherit',
+        'posts_per_page' => 1,
+        'title'          => pathinfo($filename, PATHINFO_FILENAME), // Search by title
+    );
+    
+    $query = new WP_Query($args);
+    
+    if ($query->have_posts()) {
+        if ($return_id) {
+            return $query->posts[0]->ID;
+        }
+        return wp_get_attachment_url($query->posts[0]->ID);
+    }
+    
+    // Fallback
+    return $return_id ? 0 : get_stylesheet_directory_uri() . '/images/' . $filename;
+}
