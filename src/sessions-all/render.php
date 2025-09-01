@@ -19,8 +19,8 @@ $end_time = sanitize_text_field($attributes['endTime']);
 $start_datetime = new DateTime($start_time);
 $end_datetime = new DateTime($end_time);
 
-$grid_interval = 5; 
-$display_interval = 30;
+$grid_interval = isset($attributes['gridInterval']) ? intval($attributes['gridInterval']) : 30;
+$display_interval = isset($attributes['displayInterval']) ? intval($attributes['displayInterval']) : 30;
 
 if (empty($attributes['scheduleDate'])) {
     echo 'Please provide a valid schedule date.';

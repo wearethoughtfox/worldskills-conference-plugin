@@ -9,6 +9,14 @@
   "description": "Custom block for WorldSkills conference to show all sessions in a schedule format.",
   "example": {},
   "attributes": {
+    "gridInterval": {
+      "type": "number",
+      "default": 5
+    },
+    "displayInterval": {
+      "type": "number",
+      "default": 30
+    },
     "scheduleDate": {
       "type": "string",
       "default": "2024-09-11"

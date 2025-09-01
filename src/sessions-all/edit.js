@@ -76,6 +76,24 @@ export default function Edit ({ attributes, setAttributes }) {
                             type="text"
                         />
                     </PanelRow>
+                    <PanelRow>
+    <TextControl
+        label="Grid Interval (minutes)"
+        value={ attributes.gridInterval }
+        onChange={ ( value ) => setAttributes( { gridInterval: parseInt(value) || 5 } ) }
+        type="number"
+        help="Grid precision for session positioning (e.g., 5 for 5-minute intervals)"
+    />
+</PanelRow>
+<PanelRow>
+    <TextControl
+        label="Display Interval (minutes)"
+        value={ attributes.displayInterval }
+        onChange={ ( value ) => setAttributes( { displayInterval: parseInt(value) || 30 } ) }
+        type="number"
+        help="How often to show time labels (e.g., 30 for every 30 minutes)"
+    />
+</PanelRow>
                     </PanelBody>
                     <PanelBody title={__('Background Color')}>
                         <ColorPalette

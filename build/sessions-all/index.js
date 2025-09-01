@@ -93,6 +93,22 @@ function Edit({
       endTime: value
     }),
     type: "text"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Grid Interval (minutes)",
+    value: attributes.gridInterval,
+    onChange: value => setAttributes({
+      gridInterval: parseInt(value) || 5
+    }),
+    type: "number",
+    help: "Grid precision for session positioning (e.g., 5 for 5-minute intervals)"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Display Interval (minutes)",
+    value: attributes.displayInterval,
+    onChange: value => setAttributes({
+      displayInterval: parseInt(value) || 30
+    }),
+    type: "number",
+    help: "How often to show time labels (e.g., 30 for every 30 minutes)"
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background Color')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
@@ -274,7 +290,7 @@ module.exports = window["wp"]["serverSideRender"];
   \*************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"worldskills/sessions-all","version":"0.1.0","title":"All Sessions schedule","category":"worldskills-conference","icon":"calendar-alt","description":"Custom block for WorldSkills conference to show all sessions in a schedule format.","example":{},"attributes":{"scheduleDate":{"type":"string","default":"2024-09-11"},"startTime":{"type":"string","default":"9:00"},"endTime":{"type":"string","default":"21:30"},"backgroundColor":{"type":"string","default":"#ffffff"},"linkColor":{"type":"string","default":"#000000"},"metaColor":{"type":"string","default":"#000000"},"timeColor":{"type":"string","default":"#000000"},"tagbgColor":{"type":"string","default":"#F7F7F7"}},"supports":{"html":false,"color":{"background":true,"text":true},"align":["wide","full"],"spacing":{"padding":true,"margin":true}},"textdomain":"worldskills-conference","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"worldskills/sessions-all","version":"0.1.0","title":"All Sessions schedule","category":"worldskills-conference","icon":"calendar-alt","description":"Custom block for WorldSkills conference to show all sessions in a schedule format.","example":{},"attributes":{"gridInterval":{"type":"number","default":5},"displayInterval":{"type":"number","default":30},"scheduleDate":{"type":"string","default":"2024-09-11"},"startTime":{"type":"string","default":"9:00"},"endTime":{"type":"string","default":"21:30"},"backgroundColor":{"type":"string","default":"#ffffff"},"linkColor":{"type":"string","default":"#000000"},"metaColor":{"type":"string","default":"#000000"},"timeColor":{"type":"string","default":"#000000"},"tagbgColor":{"type":"string","default":"#F7F7F7"}},"supports":{"html":false,"color":{"background":true,"text":true},"align":["wide","full"],"spacing":{"padding":true,"margin":true}},"textdomain":"worldskills-conference","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 
