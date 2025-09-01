@@ -165,7 +165,7 @@ while ($current_time <= $end_datetime) {
     $is_compressed = is_compressed_time_slot($current_time, $compressed_time_slots);
     
 if ($is_compressed) {
-     $grid_template_rows .= " [time-$time_label] 1px"; 
+     $grid_template_rows .= " [time-$time_label] 0.1px"; 
 } else {
     $base_height = ($grid_interval / 30) * 0.5; 
     $grid_template_rows .= " [time-$time_label] {$base_height}fr";
