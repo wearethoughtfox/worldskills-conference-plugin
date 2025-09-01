@@ -164,17 +164,17 @@ while ($current_time <= $end_datetime) {
     $time_label = $current_time->format('Hi');
     $is_compressed = is_compressed_time_slot($current_time, $compressed_time_slots);
     
-  if ($is_compressed) {
-    $compression_factor = 15 / $grid_interval; // Adjust based on interval change (15 was the original interval)
-    $compressed_height = 0.1 / $compression_factor;
-    $grid_template_rows .= " [time-$time_label] {$compressed_height}fr"; // Dynamically calculated smaller size
+
+    if ($is_compressed) {
+    $grid_template_rows .= " [time-$time_label] 0.5px"; // Extremely compressed
 } else {
-    $grid_template_rows .= " [time-$time_label] 1fr"; // Normal size
+    $grid_template_rows .= " [time-$time_label] 1px"; // Normal tight spacing
 }
     
     $current_time->add(new DateInterval('PT' . $grid_interval . 'M'));
     $row_counter++;
 }
+
 $grid_template_rows .= ";"; // End the CSS rule
 
 ?>
