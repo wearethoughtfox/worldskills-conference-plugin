@@ -19,7 +19,8 @@ $end_time = sanitize_text_field($attributes['endTime']);
 $start_datetime = new DateTime($start_time);
 $end_datetime = new DateTime($end_time);
 
-
+$grid_interval = 5; 
+$display_interval = 30;
 
 if (empty($attributes['scheduleDate'])) {
     echo 'Please provide a valid schedule date.';
@@ -169,7 +170,7 @@ while ($current_time <= $end_datetime) {
         $grid_template_rows .= " [time-$time_label] 1fr"; // Normal size
     }
     
-    $current_time->add(new DateInterval('PT15M'));
+    $current_time->add(new DateInterval('PT' . $grid_interval . 'M'));
     $row_counter++;
 }
 $grid_template_rows .= ";"; // End the CSS rule
@@ -201,6 +202,11 @@ $grid_template_rows .= ";"; // End the CSS rule
 // Generate time slots every 30 minutes
 $current_time = clone $start_datetime;
 while ($current_time <= $end_datetime) {
+    
+    $minutes = (int)$current_time->format('i');
+
+    if ($minutes % $display_interval === 0) {
+
     $time_slot = $current_time->format('H:i'); // Format as "09:00", "09:30", etc.
     $grid_row = 'time-' . str_replace(':', '', $time_slot);
 
@@ -208,6 +214,7 @@ while ($current_time <= $end_datetime) {
     $time_class = $is_compressed ? 'time-slot compressed-time' : 'time-slot';
     echo '<h2 class="' . $time_class . ' has-small-font-size" style="grid-row: ' . $grid_row . ';">' . $time_slot . '</h2>' . "\n";
     
+    }
     // Loop through the sessions and output those that fall within the current time slot
     foreach ($sessions as $session) {
         // Convert session times to DateTime objects for comparison
@@ -287,7 +294,7 @@ while ($current_time <= $end_datetime) {
     }
 
     // Add 30 minutes to the current time
-    $current_time->add(new DateInterval('PT30M'));
+    $current_time->add(new DateInterval('PT' . $grid_interval . 'M'));
 }
 ?>
 
