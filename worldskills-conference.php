@@ -4,7 +4,7 @@
  * Description:       Custom blocks for the WorldSkills Conference.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.5.8
+ * Version:           0.5.9
  * Author:            WorldSkills
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
